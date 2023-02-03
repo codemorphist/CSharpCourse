@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    internal class Program
+    internal class Player
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
