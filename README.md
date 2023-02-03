@@ -1,3 +1,3 @@
 # CSharpCourse
-In this repositories you can fond my homework from C# course
+In this repo you can fond my homework from C# course
 
