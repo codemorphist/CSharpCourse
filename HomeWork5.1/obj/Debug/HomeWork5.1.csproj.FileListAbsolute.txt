@@ -1,0 +1,8 @@
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\bin\Debug\HomeWork5.1.exe.config
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\bin\Debug\HomeWork5.1.exe
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\bin\Debug\HomeWork5.1.pdb
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\obj\Debug\HomeWork5.1.csproj.AssemblyReference.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\obj\Debug\HomeWork5.1.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\obj\Debug\HomeWork5.1.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\obj\Debug\HomeWork5.1.exe
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork5.1\obj\Debug\HomeWork5.1.pdb

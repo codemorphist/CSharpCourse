@@ -43,7 +43,7 @@ namespace HomeWork5._1
             return figure;
         }
 
-        private char[,] Diamond(int height)
+        public char[,] Diamond(int height)
         {
             // This function return array with diamond art with height 
             int width = 2 * height - 1;
@@ -66,7 +66,7 @@ namespace HomeWork5._1
             return figure;
         }
 
-        public Geometry(char symbol, char space) 
+        public Geometry(char symbol = '*', char space = ' ') 
         {
             this.symbol = symbol;
             this.space = space;
