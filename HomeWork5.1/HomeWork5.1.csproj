@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Array2D.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="HomeWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
