@@ -28,32 +28,32 @@ namespace HomeWork5._1
             }
         }
 
-        public void RotateLeft()
+        public void RotateRight()
         {
             // This function rotate array to left
-            if (array.GetLength(0) != array.GetLength(1)) { return; }
 
-            int size = array.GetLength(0);
-            int[,] rotated_array = new int[size, size];
+            int x_size = array.GetLength(1);
+            int y_size = array.GetLength(0);
+            int[,] rotated_array = new int[x_size, y_size];
 
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
-                    rotated_array[x, y] = array[y, size - x - 1];
+            for (int x = 0; x < x_size; x++)
+                for (int y = 0; y < y_size; y++)
+                    rotated_array[x, y] = array[y, x_size - x - 1];
 
             array = rotated_array;
         }
 
-        public void RotateRight()
+        public void RotateLeft()
         {
             // This function rotate array to right
-            if (array.GetLength(0) != array.GetLength(1)) { return; }
 
-            int size = array.GetLength(0);
-            int[,] rotated_array = new int[size, size];
+            int x_size = array.GetLength(1);
+            int y_size = array.GetLength(0);
+            int[,] rotated_array = new int[x_size, y_size];
 
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
-                    rotated_array[x, y] = array[size - y - 1, x];
+            for (int x = 0; x < x_size; x++)
+                for (int y = 0; y < y_size; y++)
+                    rotated_array[x, y] = array[y_size - y - 1, x];
 
             array = rotated_array;
         }

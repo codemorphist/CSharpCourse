@@ -30,18 +30,25 @@ namespace HomeWork5._1
             {
                 for (int x = 0; x < array.GetLength(0); x++)
                 {
-                    Console.Write($"{array[y, x]}\t");
+                    Console.Write($"{array[x, y]}\t");
                 }
                 Console.WriteLine();
             }
         }
 
         static void Main(string[] args)
-        { 
-            Geometry figure = new Geometry('#','_');
-            figure.Triangle(5);
+        {
+            Array2D array = new Array2D(4, 6);
 
-            PrintFigure(figure.GetFigure());
+            array.RandomArray();
+
+            Print2DArray(array.GetArray());
+
+            Console.WriteLine();
+
+            array.RotateLeft();
+
+            Print2DArray(array.GetArray());
         }
     }
 }
