@@ -10,12 +10,12 @@ namespace ConsoleRPG
     {
         public Characteristic Armor = new Characteristic();
 
-        public void DisplayCreature()
+        public void DisplayMonster() 
         {
             Console.WriteLine($"[Name] :: {Name}");
             Console.WriteLine($"[Level] :: {Level.Value}");
             Console.WriteLine($"[Health] :: {Health.Value}");
-            Console.WriteLine($"[Armor] :: {Armor}");
+            Console.WriteLine($"[Armor] :: {Armor.Value}");
             Console.WriteLine($"[Energy] :: {Energy.Value}");
             Console.WriteLine($"[Strength] :: {Strength.Value}");
             Console.WriteLine($"[Agility] :: {Agility.Value}");
@@ -23,7 +23,7 @@ namespace ConsoleRPG
             Console.WriteLine($"[Experience points] :: {ExperiencePoints.Value}");
         }
 
-        public Monster(string name, int armor) : base (name)
+        public Monster(string name, int armor = 100) : base (name)
         {
             Armor.Set(armor);
         }

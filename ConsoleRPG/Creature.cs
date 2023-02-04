@@ -19,18 +19,6 @@ namespace ConsoleRPG
         public Characteristic Endurance = new Characteristic();
         public Characteristic ExperiencePoints = new Characteristic();
 
-        public void DisplayCreature()
-        {
-            Console.WriteLine($"[Name] :: {Name}");
-            Console.WriteLine($"[Level] :: {Level.Value}");
-            Console.WriteLine($"[Health] :: {Health.Value}");
-            Console.WriteLine($"[Energy] :: {Energy.Value}");
-            Console.WriteLine($"[Strength] :: {Strength.Value}");
-            Console.WriteLine($"[Agility] :: {Agility.Value}");
-            Console.WriteLine($"[Endurance] :: {Endurance.Value}");
-            Console.WriteLine($"[Experience points] :: {ExperiencePoints.Value}");
-        }
-
         public Creature(string name, int level = 1, int health = 100, int energy = 100, 
                         int strength = 100, int agility = 100, int endurance = 100, int points = 100) 
         {
