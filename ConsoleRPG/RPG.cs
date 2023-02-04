@@ -10,6 +10,9 @@ namespace ConsoleRPG
     {
         static void Main(string[] args)
         {
+            Player Bob = new Player("Bob", 1);
+            Bob.Health.Set(12);
+            Bob.DisplayCreature();
         }
     }
 }

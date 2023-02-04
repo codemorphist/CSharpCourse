@@ -1,0 +1,8 @@
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\bin\Debug\ConsoleRPG.exe.config
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\bin\Debug\ConsoleRPG.exe
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\bin\Debug\ConsoleRPG.pdb
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\obj\Debug\ConsoleRPG.csproj.AssemblyReference.cache
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\obj\Debug\ConsoleRPG.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\obj\Debug\ConsoleRPG.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\obj\Debug\ConsoleRPG.exe
+C:\Users\Alex\source\repos\CSharpCourse\ConsoleRPG\obj\Debug\ConsoleRPG.pdb
