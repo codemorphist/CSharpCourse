@@ -15,11 +15,10 @@ namespace HomeWork5._1
         // This function return array
         public int[,] GetArray() { return array; }
 
-        public void RandomArray(int min, int max)
+        public void RandomArray(int min = 10, int max = 99)
         {
             /* This function receives min/max (minimum/maximum random value) and fill array
              * with random values from min to max */
-
             for (int y = 0; y < array.GetLength(0); y++)
             {
                 for (int x = 0; x < array.GetLength(1); x++)

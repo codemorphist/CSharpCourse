@@ -8,14 +8,17 @@ namespace HomeWork5._1
 {
     internal class Geometry
     {
+        private char[,] figure;
         private char symbol;
         private char space;
 
-        public char[,] Triangle(int height)
+        public char[,] GetFigure() { return figure; }
+
+        public void Triangle(int height)
         {
             // This function return array with triangle art with height 
             int size = 2 * height - 1;
-            char[,] figure = new char[size, size];
+            figure = new char[size, size];
 
             int center = size / 2;
             for (int y = 0; y < size; y++)
@@ -23,15 +26,13 @@ namespace HomeWork5._1
                 for (int x = 0; x < size; x++)
                     figure[x, y] = (x <= center + y / 2 && x >= center - y / 2 && y % 2 == 0) ? symbol : space;
             }
-
-            return figure;
         }
 
-        public char[,] ReverseTriangle(int height)
+        public void ReverseTriangle(int height)
         {
             // This function return array with reversed triangle art with height 
             int size = 2 * height - 1;
-            char[,] figure = new char[size, size];
+            figure = new char[size, size];
 
             int center = size / 2;
             for (int y = size; y > 0; y--)
@@ -39,17 +40,15 @@ namespace HomeWork5._1
                 for (int x = 0; x < size; x++)
                     figure[x, size - y] = (x <= center + y / 2 && x >= center - y / 2 && y % 2 != 0) ? symbol : space;
             }
-
-            return figure;
         }
 
-        public char[,] Diamond(int height)
+        public void Diamond(int height)
         {
             // This function return array with diamond art with height 
             int width = 2 * height - 1;
             height = 2 * width - 1;
 
-            char[,] figure = new char[width, height];
+            figure = new char[width, height];
 
             int center = (width - 1) / 2;
             for (int y = 0; y < height; y++)
@@ -62,8 +61,6 @@ namespace HomeWork5._1
                         figure[x, y] = (x <= center + (height - y - 1) / 2 && x >= center - (height - y - 1) / 2 && y % 2 == 0) ? '*' : ' ';
                 }
             }
-
-            return figure;
         }
 
         public Geometry(char symbol = '*', char space = ' ') 

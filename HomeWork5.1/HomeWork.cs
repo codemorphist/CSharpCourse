@@ -22,13 +22,26 @@ namespace HomeWork5._1
             }
         }
 
-        static void Main(string[] args)
+        private static void Print2DArray(int[,] array)
         {
-            Geometry Figure = new Geometry();
+            // This function print figure from 2d array
+            Console.WriteLine();
+            for (int y = 0; y < array.GetLength(1); y++)
+            {
+                for (int x = 0; x < array.GetLength(0); x++)
+                {
+                    Console.Write($"{array[y, x]}\t");
+                }
+                Console.WriteLine();
+            }
+        }
 
-            char[,] figure = Figure.Diamond(5);
+        static void Main(string[] args)
+        { 
+            Geometry figure = new Geometry('#','_');
+            figure.Triangle(5);
 
-            PrintFigure(figure);
+            PrintFigure(figure.GetFigure());
         }
     }
 }
