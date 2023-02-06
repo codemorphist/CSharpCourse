@@ -12,11 +12,13 @@ namespace HomeWork5._1
         private char symbol;
         private char space;
 
+        // This function return array with figure
         public char[,] GetFigure() { return figure; }
 
         public void Triangle(int height)
         {
-            // This function return array with triangle art with height 
+            // This function draw triangle
+
             int size = 2 * height - 1;
             figure = new char[size, size];
 
@@ -29,8 +31,9 @@ namespace HomeWork5._1
         }
 
         public void ReverseTriangle(int height)
-        {
-            // This function return array with reversed triangle art with height 
+        { 
+            // This function draw reversed triangle
+
             int size = 2 * height - 1;
             figure = new char[size, size];
 
@@ -44,7 +47,8 @@ namespace HomeWork5._1
 
         public void Diamond(int height)
         {
-            // This function return array with diamond art with height 
+            // This function draw diamond
+
             int width = 2 * height - 1;
             height = 2 * width - 1;
 
@@ -60,6 +64,21 @@ namespace HomeWork5._1
                     else
                         figure[x, y] = (x <= center + (height - y - 1) / 2 && x >= center - (height - y - 1) / 2 && y % 2 == 0) ? '*' : ' ';
                 }
+            }
+        }
+
+        public void DrawFigure()
+        {
+            // This function draw figure from 2d array
+
+            Console.WriteLine();
+            for (int y = 0; y < figure.GetLength(1); y++)
+            {
+                for (int x = 0; x < figure.GetLength(0); x++)
+                {
+                    Console.Write(figure[x, y]);
+                }
+                Console.WriteLine();
             }
         }
 

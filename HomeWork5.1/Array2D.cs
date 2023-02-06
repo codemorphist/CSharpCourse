@@ -58,6 +58,19 @@ namespace HomeWork5._1
             array = rotated_array;
         }
 
+        public void Print2DArray()
+        {
+            // This function print 2d array
+
+            for (int y = 0; y < array.GetLength(1); y++)
+            {
+                for (int x = 0; x < array.GetLength(0); x++)
+                {
+                    Console.Write($"{array[x, y]} ");
+                }
+                Console.WriteLine();
+            }
+        }
         public Array2D(int x_size, int y_size) 
         {
             array = new int[x_size, y_size];

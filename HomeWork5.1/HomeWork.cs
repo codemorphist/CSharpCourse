@@ -12,9 +12,11 @@ namespace HomeWork5._1
 {
     internal class HomeWork
     {
+        // Windows parameters
         private static int WindowWidth = 120;
         private static int WindowHeight = 30;
 
+        // Enum for print function
         private enum Align
         {
             CENTER,
@@ -54,9 +56,23 @@ namespace HomeWork5._1
             return Convert.ToInt32(InputValue(text));
         }
 
+        private static bool InputYesNo(string text)
+        {
+            /* This function receives a text parameter (what will be displayed in the console).
+             * and returns the bool value entered by the user (Yes or No). */
+            string choice;
+            choice = InputValue(text + " (Так або Ні)").ToLower();
+
+            if (choice == "так" || choice == "yes" || choice == "y" || choice == "1")
+                return true;
+            else
+                return false;
+        }
 
         static int MaxMenuLength(string[] menu)
         {
+            // This function return max length string from string array 
+
             int max_length = 0;
             foreach(string ithem in menu)
             {
@@ -66,9 +82,11 @@ namespace HomeWork5._1
             return max_length;
         }
 
-        static void PrintMenu(string[] menu)
+        static void PrintMenu(string[] menu, ConsoleColor color = ConsoleColor.Red)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            // This function print menu form string array
+
+            Console.ForegroundColor = color;
 
             Console.WriteLine();
 
@@ -85,12 +103,16 @@ namespace HomeWork5._1
 
         static void PrintCenter(string text)
         {
+            // This function print text on center of Console
+
             Console.SetCursorPosition((WindowWidth - text.Length) / 2, Console.CursorTop + 1);
             Console.Write(text);
         }
 
         static void PrintRight(string text)
         {
+            // This function print text on right of Console
+
             Console.SetCursorPosition(WindowWidth - text.Length, Console.CursorTop + 1);
             Console.Write(text);
         }
@@ -100,9 +122,14 @@ namespace HomeWork5._1
             ConsoleColor background = ConsoleColor.Black,
             Align align = Align.LEFT)
         {
+            /* This function print text with given foreground and background colors 
+             * and alignt text by left, center or right. */
+
+            // Set foreground and background colors
             Console.ForegroundColor = color;
             Console.BackgroundColor = background;
 
+            // Align text
             switch (align)
             {
                 case Align.CENTER: 
@@ -116,46 +143,63 @@ namespace HomeWork5._1
                     break;       
             }
 
+            // Reset Console color settings
             Console.ResetColor();
         }
 
-        static void PrintFigure(char[,] figure)
-        {
-            // This function print figure from 2d array
-            Console.WriteLine();
-            for (int y = 0; y < figure.GetLength(1); y++)
-            {
-                for (int x = 0; x < figure.GetLength(0); x++)
-                {
-                    Console.Write(figure[x, y]);
-                }
-                Console.WriteLine();
-            }
-        }
-
-        static void Print2DArray(int[,] array)
-        {
-            // This function print figure from 2d array
-            Console.WriteLine();
-            for (int y = 0; y < array.GetLength(1); y++)
-            {
-                for (int x = 0; x < array.GetLength(0); x++)
-                {
-                    Console.Write($"{array[x, y]}\t");
-                }
-                Console.WriteLine();
-            }
-        }
-
-
+        // Option 1: Array Task
         static void ArrayClassTask()
         {
+            Console.Clear();
 
+            int width = InputInt("Введіть ширину масиву");
+            int height = InputInt("Введіть висоту масиву");
+
+            Array2D array = new Array2D(width, height);
+
+            Console.Clear();
+
+            Print("Масив: ", align: Align.LEFT);
+            array.Print2DArray();
+
+            Print("\nМасив заповнений ввипадковими числами: ", align: Align.LEFT);
+            array.RandomArray();
+            array.Print2DArray();
+
+            Print("\nПовернутий вліво: ", align: Align.LEFT);
+            array.RotateLeft();
+            array.Print2DArray();
         }
 
+        // Option 2: Geometry Task
         static void AsciiArtGeometry()
         {
+            Console.Clear();
+            
+            Geometry figure = new Geometry();
 
+            string[] menu = { "Виберіть що будемо малювати:", "[1] Трикутник", "[2] Перевернутий трикутник", "[3] Ромб" };
+
+            PrintMenu(menu, ConsoleColor.Blue);
+            int op = InputInt("Ведіть пункт з меню");
+            int height = InputInt("Введіть висоту фігури");
+
+            switch(op)
+            {
+                case 1: 
+                    figure.Triangle(height);
+                    break;
+                case 2: 
+                    figure.ReverseTriangle(height);
+                    break;
+                case 3: 
+                    figure.Diamond(height);
+                    break;
+            }
+
+            Console.Clear();
+
+            figure.DrawFigure();
         }
 
         static void Main(string[] args)
@@ -169,7 +213,7 @@ namespace HomeWork5._1
             Console.InputEncoding = Encoding.Unicode;
             
             // Menu initialization
-            string[] Menu= { "[1] ", "[2] ASCII Фігури", "[0] Exit" };
+            string[] Menu= { "[1] Двовимірний масив", "[2] ASCII Фігури", "[0] Exit" };
 
             // Option for chose menu ithem
             int op;
@@ -185,22 +229,28 @@ namespace HomeWork5._1
 
                 PrintMenu(Menu);
 
-                op = InputInt("Введіть опцію із меню > ");
+                op = InputInt("Введіть опцію із меню");
 
-                switch (op)
+                // Run some function from option
+                do
                 {
-                    case 0: 
-                        break;
-                    case 1:
-                        break;
-                    case 2: 
-                        break;
-                    default:
-                        Print("[ERROR] Такої опції не існує", ConsoleColor.DarkRed, align: Align.CENTER);
-                        Print("Натисність будь яку клавішу щоб продовжити...", ConsoleColor.DarkGray, align: Align.CENTER);
-                        Console.ReadLine();
-                        break;
-                }
+                    switch (op)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            ArrayClassTask();
+                            break;
+                        case 2:
+                            AsciiArtGeometry();
+                            break;
+                        default:
+                            Print("[ERROR] Такої опції не існує", ConsoleColor.DarkRed, align: Align.CENTER);
+                            Print("Натисність будь яку клавішу щоб продовжити...", ConsoleColor.DarkGray, align: Align.CENTER);
+                            Console.ReadLine();
+                            break;
+                    } 
+                } while (InputYesNo("Бажаєте порахувати ще раз?"));
             } while (op != 0);
         }
     }
