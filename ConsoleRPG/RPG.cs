@@ -10,12 +10,14 @@ namespace ConsoleRPG
     {
         private static string InputValue(string text)
         {
+            // This function return inputed by user value
             Console.Write(text);    
             return Console.ReadLine();
         }
 
         private static int InputInt(string text)
         {
+            // This function return inputed by user integer
             return Convert.ToInt32(InputValue(text));
         }
 
@@ -42,6 +44,7 @@ namespace ConsoleRPG
                     break;
             }
 
+            // Create new Player
             Player player = new Player(name, type);
 
             Console.WriteLine($"\nВи створили персонажа з іменем: {name}, та типом: {type}.");
