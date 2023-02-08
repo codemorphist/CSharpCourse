@@ -6,31 +6,36 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    internal class Player : Creature
+    internal class Player
     {
+        // Initialization of characteristics
+        public string Name;
         public string Type;
-        public Characteristic Agility = new Characteristic();
-        public Characteristic Endurance = new Characteristic();
+        public int Level;
+        public int Health;
+        public int Energy;
+        public int Strength;
+        public int Agility;
+        public int Endurance;
+        public int ExperiencePoints
 
-        public void DisplayCreature()
+        public Player(string name, string type)
         {
-            Console.WriteLine($"[Name] :: {Name}");
-            Console.WriteLine($"[Type] :: {Type}");
-            Console.WriteLine($"[Level] :: {Level.Value}");
-            Console.WriteLine($"[Health] :: {Health.Value}");
-            Console.WriteLine($"[Energy] :: {Energy.Value}");
-            Console.WriteLine($"[Strength] :: {Strength.Value}");
-            Console.WriteLine($"[Agility] :: {Agility.Value}");
-            Console.WriteLine($"[Endurance] :: {Endurance.Value}");
-            Console.WriteLine($"[Experience points] :: {ExperiencePoints.Value}");
-        }
+            Name = name;
+            Type = type;
 
-        private string[] AviableTypes = { "Barbarian", "Bandit", "Tank" };
-        public Player(string name, int type, int agility = 100, int endurance = 100) : base (name) 
-        {
-            Type = AviableTypes[type];
-            Agility.Set(agility);
-            Endurance.Set(endurance);
+            switch (type)
+            {
+                case "Barbarian":
+                    // Characteristics settings ...
+                    break;
+                case "Tank":
+                    // Characteristics settings ...
+                    break;
+                case "Bandit":
+                    // Characteristics settings ...
+                    break;
+            }
         }
     }
 }

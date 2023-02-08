@@ -10,8 +10,7 @@ namespace ConsoleRPG
     {
         static void Main(string[] args)
         {
-            Monster Cronos = new Monster("Cronos");
-            Cronos.DisplayMonster();
+
         }
     }
 }

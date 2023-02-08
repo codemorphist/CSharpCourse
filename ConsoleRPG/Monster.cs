@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    internal class Monster : Creature
+    internal class Monster
     {
-        public Characteristic Armor = new Characteristic();
+        // Initialization of characteristics
+        public string Name;
+        public int Level;
+        public int Health;
+        public int Armor;
+        public int Energy;
+        public int Strength;
+        public int ExperiencePoints;
 
-        public void DisplayMonster() 
+        public Monster(string name)
         {
-            Console.WriteLine($"[Name] :: {Name}");
-            Console.WriteLine($"[Level] :: {Level.Value}");
-            Console.WriteLine($"[Health] :: {Health.Value}");
-            Console.WriteLine($"[Armor] :: {Armor.Value}");
-            Console.WriteLine($"[Energy] :: {Energy.Value}");
-            Console.WriteLine($"[Strength] :: {Strength.Value}");
-            Console.WriteLine($"[Agility] :: {Agility.Value}");
-            Console.WriteLine($"[Endurance] :: {Endurance.Value}");
-            Console.WriteLine($"[Experience points] :: {ExperiencePoints.Value}");
-        }
-
-        public Monster(string name, int armor = 100) : base (name)
-        {
-            Armor.Set(armor);
+            Name = name;
+            Level = 1;
+            Health = 100;
+            Armor = 100;
+            Energy = 100;
+            Strength = 5;
+            ExperiencePoints = 100;
         }
     }
 }
