@@ -8,9 +8,53 @@ namespace ConsoleRPG
 {
     internal class RPG
     {
+        private static string InputValue(string text)
+        {
+            Console.Write(text);    
+            return Console.ReadLine();
+        }
+
+        private static int InputInt(string text)
+        {
+            return Convert.ToInt32(InputValue(text));
+        }
+
+        private static Player CreatePlayer()
+        {
+            // Name of player input
+            string name = InputValue("Введіть ім'я персонажа: ");
+            
+            // Type of Player input
+            Console.Write("\n[1] Варвар\n" +
+                          "[2] Танк\n" +
+                          "[3] Розбійник\n");
+            string type = "";
+            switch(InputInt("Виберіть тип персонажа: "))
+            {
+                case 1:
+                    type = "ᛔarbarian";
+                    break;
+                case 2:
+                    type = "Tank";
+                    break;
+                case 3:
+                    type = "Bandit";
+                    break;
+            }
+
+            Player player = new Player(name, type);
+
+            Console.WriteLine($"\nВи створили персонажа з іменем: {name}, та типом: {type}.");
+            return player;
+        }
+
         static void Main(string[] args)
         {
+            // Enable support Unicode input and output
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
 
+            Player player = CreatePlayer();
         }
     }
 }
