@@ -17,7 +17,7 @@ namespace ConsoleRPG
         public int Strength;
         public int Agility;
         public int Endurance;
-        public int ExperiencePoints
+        public int ExperiencePoints;
 
         public Player(string name, string type)
         {
