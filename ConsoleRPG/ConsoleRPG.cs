@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    internal class RPG
+    internal class ConsoleRPG
     {
         private static string InputValue(string text)
         {
@@ -34,7 +34,7 @@ namespace ConsoleRPG
             switch(InputInt("Виберіть тип персонажа: "))
             {
                 case 1:
-                    type = "ᛔarbarian";
+                    type = "Barbarian";
                     break;
                 case 2:
                     type = "Tank";
@@ -58,6 +58,12 @@ namespace ConsoleRPG
             Console.InputEncoding = Encoding.Unicode;
 
             Player player = CreatePlayer();
+
+            Console.WriteLine(player.Health);
+
+            player.Health -= 5;
+
+            Console.WriteLine(player.Health);
         }
     }
 }
