@@ -58,12 +58,6 @@ namespace ConsoleRPG
             Console.InputEncoding = Encoding.Unicode;
 
             Player player = CreatePlayer();
-
-            Console.WriteLine(player.Health);
-
-            player.Health -= 5;
-
-            Console.WriteLine(player.Health);
         }
     }
 }

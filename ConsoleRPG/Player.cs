@@ -9,16 +9,35 @@ namespace ConsoleRPG
     internal class Player
     {
         // Initialization of characteristics
-        public string Name;
-        public string Type { get; set; }
-        public int Level { get { return Level; } set { Level = (value >= 0) ? value : Level; } }
-        public int Health { get { return Health; } set { Health = (value >= 0) ? value : Health; } }
-        public int Energy { get { return Energy; } set { Energy = (value >= 0) ? value : Energy; } }
-        public int Strength { get { return Strength; } set { Strength = (value >= 0) ? value : Strength; } }
-        public int Agility { get { return Agility; } set { Agility = (value >= 0) ? value : Agility; } }
-        public int Endurance { get { return Endurance; } set { Endurance = (value >= 0) ? value : Endurance; } }
-        public int ExperiencePoints { get { return ExperiencePoints; } set { ExperiencePoints = (value >= 0) ? value : ExperiencePoints; } }
+        private string Name { get; }
+        private string Type { get; }
+        private int Level;
+        private int Health;
+        private int Energy;
+        private int Strength;
+        private int Agility;
+        private int Endurance;
+        private int ExperiencePoints;
 
+        // Set functions
+        public void SetLevel(int value) => Level = (value > 0) ? value : Level;
+        public void SetHealth(int value) => Health = (value > 0) ? value : Health;
+        public void SetEnergy(int value) => Energy = (value > 0) ? value : Energy;
+        public void SetStrength(int value) => Strength = (value > 0) ? value : Strength;
+        public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;
+        public void SetEndurance(int value) => Endurance = (value > 0) ? value : Endurance;
+        public void SetExperiencePoints(int value) => ExperiencePoints = (value > 0) ? value : ExperiencePoints;
+
+        // Get functions
+        public int GetLevel() => Level;
+        public int GetHealth() => Health;
+        public int GetEnergy() => Energy;
+        public int GetStrength() => Strength;
+        public int GetAgility() => Agility;
+        public int GetEndurance() => Endurance;
+        public int GetExperiencePoints() => ExperiencePoints;
+
+        // Player Class constructor
         public Player(string name, string type)
         {
             Name = name;
