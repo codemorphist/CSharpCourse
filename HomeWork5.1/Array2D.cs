@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,50 @@ namespace HomeWork5._1
 
         // This function return array
         public int[,] GetArray() { return array; }
+
+        // This function return size of array
+        public int GetSize() { return array.Length; }
+
+        // This function return min value in array
+        public int GetMin()
+        {
+            int min = array[0, 0];
+            for (int y = 0; y < array.GetLength(0); y++)
+            {
+                for (int x = 0; x < array.GetLength(1); x++)
+                {
+                    min = (array[y, x] < min) ? array[y, x] : min;
+                }
+            }
+
+            return min;
+        }
+
+        // This function return max value in array
+        public int GetMax()
+        {
+            int max = array[0, 0];
+            for (int y = 0; y < array.GetLength(0); y++)
+            {
+                for (int x = 0; x < array.GetLength(1); x++)
+                {
+                    max = (array[y, x] > max) ? array[y, x] : max;
+                }
+            }
+
+            return max;
+        }
+        
+        // This function return has value in array or not
+        public bool Find(int value)
+        {
+            foreach (int x in array)
+            {
+                if (x == value) return true;
+            }
+
+            return false;
+        }
 
         public void RandomArray(int min = 10, int max = 99)
         {

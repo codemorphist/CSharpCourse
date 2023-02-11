@@ -50,7 +50,7 @@ namespace HomeWork5._1
             // This function draw diamond
 
             int width = 2 * height - 1;
-            height = 2 * width - 1;
+            height = 2*height - 1;
 
             figure = new char[width, height];
 

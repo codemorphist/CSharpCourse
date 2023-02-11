@@ -159,16 +159,21 @@ namespace HomeWork5._1
 
             Console.Clear();
 
-            Print("Масив: ", align: Align.LEFT);
+            Print("Масив: ");
             array.Print2DArray();
 
-            Print("\nМасив заповнений ввипадковими числами: ", align: Align.LEFT);
+            Print("\nМасив заповнений ввипадковими числами: ");
             array.RandomArray();
             array.Print2DArray();
 
-            Print("\nПовернутий вліво: ", align: Align.LEFT);
+            Print("\nПовернутий вліво: ");
             array.RotateLeft();
             array.Print2DArray();
+
+            Print($"\nРозмір масиву: {array.GetSize()}");
+            Print($"Максимальний елемент: {array.GetMax()}");
+            Print($"Мінімальний елемент: {array.GetMin()}");
+            Print($"Чи є в масиві число 44: {array.Find(4)}");
         }
 
         // Option 2: Geometry Task
@@ -217,6 +222,7 @@ namespace HomeWork5._1
 
             // Option for chose menu ithem
             int op;
+            bool cont = false;
 
             // Program Cycle
             do
@@ -240,17 +246,20 @@ namespace HomeWork5._1
                             break;
                         case 1:
                             ArrayClassTask();
+                            cont = InputYesNo("Бажаєте порахувати ще раз?");
                             break;
                         case 2:
                             AsciiArtGeometry();
+                            cont = InputYesNo("Бажаєте порахувати ще раз?");
                             break;
                         default:
                             Print("[ERROR] Такої опції не існує", ConsoleColor.DarkRed, align: Align.CENTER);
                             Print("Натисність будь яку клавішу щоб продовжити...", ConsoleColor.DarkGray, align: Align.CENTER);
+                            cont = false;
                             Console.ReadLine();
                             break;
                     } 
-                } while (InputYesNo("Бажаєте порахувати ще раз?"));
+                } while (cont);
             } while (op != 0);
         }
     }
