@@ -9,11 +9,10 @@ namespace ConsoleRPG.Creature
     internal class BasePerson
     {
         // Initialization of characteristics
-        private string Name;
+        private readonly string Name;
         private int Level;
-        private int Health;
-        private int MaxHealth;
-        private int Energy;
+        private int Health, MaxHealth;
+        private int Energy, MaxEnergy;
         private int Strength;
         private int ExperiencePoints;
 
@@ -22,6 +21,7 @@ namespace ConsoleRPG.Creature
         public void SetHealth(int value) => Health = (value > 0) ? value : Health;
         public void SetMaxHealth(int value) => MaxHealth = (value > 0) ? value : MaxHealth;
         public void SetEnergy(int value) => Energy = (value > 0) ? value : Energy;
+        public void SetMaxEnergy(int value) => MaxEnergy = (value > 0) ? value : MaxEnergy;
         public void SetStrength(int value) => Strength = (value > 0) ? value : Strength;
         public void SetExperiencePoints(int value) => ExperiencePoints = (value > 0) ? value : ExperiencePoints;
 

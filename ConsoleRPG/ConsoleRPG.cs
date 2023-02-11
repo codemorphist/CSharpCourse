@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ConsoleRPG.Creatures.NPC;
+using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
 
 namespace ConsoleRPG
@@ -59,10 +60,10 @@ namespace ConsoleRPG
             {
                 DrawHitLine(hit);
 
-                if (hit == 51|| hit == 0)
-                    direction *= -1;
-
                 hit += direction;
+
+                if (hit == 51 || hit == 0)
+                    direction *= -1;
 
                 Thread.Sleep(pause);
             }
@@ -102,24 +103,39 @@ namespace ConsoleRPG
             Console.ResetColor();
         }
 
-        public static void ShowMonsterInfo()
+        private static void ShowMonsterInfo(Monster monster)
         {
-            Monster monster = engine.MonsterGenerator();
-
             Console.WriteLine("\t" + monster.GetName());
             ShowHealth(monster.GetHealth(), monster.GetMaxHealth());
-            Console.Write($"\t[Armor] : {monster.GetArmor()}");
-            Console.Write($"\t[Energy] : {monster.GetEnergy()}");
-            Console.Write($"\t[Energy] : {monster.GetEnergy()}");
+            Console.WriteLine($"\t[Armor] : {monster.GetArmor()} ⛨");
+            Console.WriteLine($"\t[Strength] : {monster.GetStrength()} ⚔");
+            Console.WriteLine($"\t[Energy] : {monster.GetEnergy()} 🗲");
+            Console.WriteLine($"\t[Experience Points] : {monster.GetExperiencePoints()} ✪");
+        }
+
+        private static void ShowPlayerInfo(Player player)
+        {
+            Console.WriteLine("\t" + player.GetName());
+            ShowHealth(player.GetHealth(), player.GetMaxHealth());
+            Console.WriteLine($"\t[Strength] : {player.GetStrength()} ⚔");
+            Console.WriteLine($"\t[Energy] : {player.GetEnergy()} 🗲");
+            Console.WriteLine($"\t[Experience Points] : {player.GetExperiencePoints()} ✪");
         }
 
         static void Main(string[] args)
         {
             // Enable support Unicode input and output
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
 
-            ShowMonsterInfo();
+            Player player = new Tank("Aaron");
+            Monster monster = engine.GetMonster(player);
+
+            ShowPlayerInfo(player);
+
+            Console.WriteLine();
+
+            ShowMonsterInfo(monster);
         }
     }
 }

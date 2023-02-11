@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ConsoleRPG.Creatures;
+using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Engine.Generators;
 
@@ -12,21 +13,16 @@ namespace ConsoleRPG.Engine
 {
     internal class GameEngine
     {
-        private Generator generator = new Generator();
+        private readonly Generator generator = new Generator();
         
-        public Monster MonsterGenerator()
+        public Monster GetMonster(Player player)
         {
-            string name = generator.NameGenerator();
-            int level = generator.RandomNumber(1,30);
-            int health = generator.RandomNumber(100,1000);
-            int max_health = generator.RandomNumber(health,health+500);
-            int armor = generator.RandomNumber(100,500);
-            int energy = generator.RandomNumber(200,500);
-            int strength = generator.RandomNumber(10,100);
-            int expireance_points = generator.RandomNumber(10,200);
+            return generator.MonsterGenerator(player);
+        }
 
-            return new Monster(name, level, health, max_health, 
-                               armor, strength, energy, expireance_points);
+        public Player CreatePlayer()
+        {
+            return new Tank("Aaron");
         }
     }
 }

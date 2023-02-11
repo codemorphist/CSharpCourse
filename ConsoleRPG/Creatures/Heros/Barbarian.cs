@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Creatures.Heros
 {
-    internal class Barbarian
+    internal class Barbarian : Player
     {
+        public Barbarian(string name) : base(name)
+        {
+            SetStrength(80);
+        }
     }
 }

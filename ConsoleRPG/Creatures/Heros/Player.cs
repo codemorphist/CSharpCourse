@@ -21,11 +21,18 @@ namespace ConsoleRPG.Creatures.Heros
         public int GetAgility() => Agility;
         public int GetEndurance() => Endurance;
 
-
         // Player Class constructor
         public Player(string name) : base (name)
         {
-            SetHealth(100);
+            SetLevel(1);
+            SetHealth(600);
+            SetMaxHealth(600);
+            SetEnergy(100);
+            SetMaxEnergy(100);
+            SetStrength(50);
+            SetAgility(100);
+            SetEndurance(100);
+            SetExperiencePoints(100);
         }
     }
 }

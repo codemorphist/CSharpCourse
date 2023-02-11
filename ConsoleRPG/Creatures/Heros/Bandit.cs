@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Creatures.Heros
 {
-    internal class Bandit
+    internal class Bandit : Player
     {
+        public Bandit(string name) : base (name)
+        {
+            SetAgility(150);
+        }
     }
 }

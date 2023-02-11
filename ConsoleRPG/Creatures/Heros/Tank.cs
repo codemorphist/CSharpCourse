@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Creatures.Heros
 {
-    internal class Tank
+    internal class Tank : Player
     {
+        public Tank(string name) : base(name)
+        {
+            SetEndurance(150);
+        }
     }
 }
