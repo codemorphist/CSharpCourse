@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
+using ConsoleRPG.Interface;
 
 namespace ConsoleRPG
 {
     internal class ConsoleRPG
     {
         private static Random random = new Random();
-        private static GameEngine engine = new GameEngine();
+        private static GameEngine Engine = new GameEngine();
+        public static InputOutputFunctions TUI = new InputOutputFunctions();
 
         private static string InputValue(string text)
         {
@@ -129,7 +131,10 @@ namespace ConsoleRPG
             Console.InputEncoding = Encoding.UTF8;
 
             Player player = new Tank("Aaron");
-            Monster monster = engine.GetMonster(player);
+            Monster monster = Engine.GetMonster(player);
+
+            TUI.Print("Hello world!", InputOutputFunctions.AlignPrint.Center);
+            TUI.PrintByCords("Nice TExt", 1100, 2332);
 
             ShowPlayerInfo(player);
 

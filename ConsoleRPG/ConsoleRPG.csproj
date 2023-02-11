@@ -53,10 +53,12 @@
     <Compile Include="ConsoleRPG.cs" />
     <Compile Include="Engine\Generators.cs" />
     <Compile Include="Engine\NameGeneratror.cs" />
+    <Compile Include="Interface\InputOutputFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
