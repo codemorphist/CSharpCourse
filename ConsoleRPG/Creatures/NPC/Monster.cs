@@ -15,7 +15,7 @@ namespace ConsoleRPG.Creatures.NPC
 
         // Set functions
         public void SetArmor(int value) => Armor = (value > 0) ? value : Armor;
-        public void SetMaxArmor(int value) => MaxArmor = (value > 0) ? value : Armor;
+        public void SetMaxArmor(int value) => MaxArmor = (value > 0) ? value : MaxArmor;
 
         // Get functions
         public int GetArmor() => Armor;
