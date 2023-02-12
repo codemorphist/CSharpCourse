@@ -6,24 +6,20 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using static ConsoleRPG.Engine.Generators.NameGeneratror;
 
 namespace ConsoleRPG.Engine.Generators
 {
-    internal class Generator
+    static class Generator
     {
-        private readonly Random random = new Random();
+        private static readonly Random random = new Random();
 
-        public int RandomNumber(int min, int max) => random.Next(min, max+1);
+        public static int RandomNumber(int min, int max) => random.Next(min, max+1);
 
-        public string GenerateMonsterName()
+        public static Monster MonsterGenerator(Player player)
         {
-            return new NameGeneratror().GenerateName();
-        }
-
-        public Monster MonsterGenerator(Player player)
-        {
-            string name = GenerateMonsterName();
-            int level = RandomNumber(player.GetLevel()-1, player.GetLevel()+1);
+            string name = GenerateName();
+            int level = RandomNumber(player.GetLevel() - 1, player.GetLevel() + 1);
             int health = RandomNumber(player.GetHealth()-100, player.GetHealth() + 100);
             int max_health = RandomNumber(health, health + 500);
             int armor = RandomNumber(100, 500);

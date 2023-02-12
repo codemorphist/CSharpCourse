@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Interface
 {
-    internal class InputOutputFunctions
+    public static class TUI
     {
-        public string InputValue()
+        public static string InputValue()
         {
             return Console.ReadLine();
         }
 
-        public int InputInt()
+        public static int InputInt()
         {
             return Convert.ToInt32(InputValue());
         }
 
-        public char InputChar()
+        public static char InputChar()
         {
             return Convert.ToChar(InputValue());
         }
 
-        private void PrintCenter(string text)
+        private static void PrintCenter(string text)
         {
             Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, Console.CursorTop);
             Console.Write(text);
         }
 
-        private void PrintRight(string text)
+        private static void PrintRight(string text)
         {
             Console.SetCursorPosition(Console.WindowWidth - text.Length, Console.CursorTop);
             Console.Write(text);
         }
 
-        private void PrintLeft(string text)
+        private static void PrintLeft(string text)
         {
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.Write(text);
@@ -49,7 +49,7 @@ namespace ConsoleRPG.Interface
             None
         }
 
-        public void Print(string text, AlignPrint align = AlignPrint.None, 
+        public static void Print(string text, AlignPrint align = AlignPrint.None, 
                           ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
         {
             Console.ForegroundColor = color;
@@ -74,7 +74,14 @@ namespace ConsoleRPG.Interface
             Console.ResetColor();
         }
 
-        public void PrintByCords(string text, int left, int top,
+        public static void PrintLine(string text, AlignPrint align = AlignPrint.None,
+                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        {
+            Print(text, align, color, background);
+            Console.CursorTop += 1;
+        }
+
+        public static void PrintByCords(string text, int left, int top,
                                  ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
         {
             left = (left > Console.WindowWidth) ? Console.WindowWidth - text.Length : left;
@@ -82,6 +89,15 @@ namespace ConsoleRPG.Interface
 
             Console.SetCursorPosition(left, top);
             Print(text, AlignPrint.None, color, background);
+        }
+
+        public static void PrintMenu(string[] menu, AlignPrint align = AlignPrint.None,
+                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        {
+            for(int i = 0; i < menu.Length; i++)
+            {
+                PrintLine($"[{i+1}] {menu[i]}", align, color, background);
+            }
         }
     }
 }

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Engine.Generators
 {
-    internal class NameGeneratror
+    static class NameGeneratror
     {
-        private readonly Random random = new Random();
+        private static readonly Random random = new Random();
 
-        public string GenerateName()
+        public static string GenerateName()
         {
             return GenerataFirstPart() + " " + GenerateSecondPart();
         }
 
-        private string GenerataFirstPart()
+        private static string GenerataFirstPart()
         {
             if (random.NextDouble() > 0.5)
             {
@@ -28,7 +28,7 @@ namespace ConsoleRPG.Engine.Generators
             return nm3[nameIndex1] + nm4[nameIndex2];
         }
 
-        private string GenerateSecondPart()
+        private static string GenerateSecondPart()
         {
             if (random.NextDouble() > 0.5)
             {
@@ -41,7 +41,7 @@ namespace ConsoleRPG.Engine.Generators
             return nm5[nameIndex1] + nm6[nameIndex2];
         }
 
-        private readonly string[] nm1 =
+        private static readonly string[] nm1 =
         {
             "Acanthuridae", "Achatina", "Achatinoidea", "Acinonyx", "Actinidia", "Aegypius", "Aepyceros", "Ailuropoda",
             "Ailurus", "Ajaja", "Alcelaphinae", "Alces", "Alligator", "Alopex", "Alouatta", "Ambystoma",
@@ -91,7 +91,7 @@ namespace ConsoleRPG.Engine.Generators
             "Xenopus"
         };
 
-        private readonly string[] nm2 =
+        private static readonly string[] nm2 =
         {
             "abelii", "acanthias", "aculeatus", "acutorostrata", "adeliae", "aegagrus", "afra", "africana", "africanus",
             "agassizii", "agilis", "ajaja", "alba", "albiventris", "alces", "alisman", "alpinus", "altaica", "aluco",
@@ -129,7 +129,7 @@ namespace ConsoleRPG.Engine.Generators
             "volitans", "vulgaris", "vulpes", "zebra", "zerda", "zygaena"
         };
 
-        private readonly string[] nm3 =
+        private static readonly string[] nm3 =
         {
             "Acanth", "Ach", "Achat", "Acin", "Act", "Aeg", "Aepyc", "Ail", "Ailur", "Aj", "Al", "Alc", "Alcel", "All",
             "Amb", "Amphipr", "An", "Ang", "Anis", "Anth", "Ap", "Apat", "Apod", "Apten", "Ar", "Arachn", "Arct",
@@ -161,7 +161,7 @@ namespace ConsoleRPG.Engine.Generators
             "Uroch", "Uropl", "Urs", "Var", "Vesp", "Viv", "Vomb", "Vulp", "Xenop"
         };
 
-        private readonly string[] nm4 =
+        private static readonly string[] nm4 =
         {
             "aatus", "aca", "acal", "achia", "achrus", "acine", "acna", "acus", "ae", "aeidae", "aemus", "aena",
             "aenidae", "aetes", "affa", "ailurus", "aius", "aja", "ajao", "ale", "alis", "alus", "amalis", "ambulus",
@@ -186,7 +186,7 @@ namespace ConsoleRPG.Engine.Generators
             "yptula", "yrna", "ysodon", "ystoma", "yura", "yurus"
         };
 
-        private readonly string[] nm5 =
+        private static readonly string[] nm5 =
         {
             "abel", "acanth", "acul", "acutor", "adel", "aeg", "afr", "agass", "agil", "aj", "al", "alb", "albiv", "alc",
             "alism", "alp", "alt", "amblyrh", "amoyens", "amphib", "anat", "ang", "antip", "ar", "arct", "arg", "as",
@@ -211,7 +211,7 @@ namespace ConsoleRPG.Engine.Generators
             "vulp", "zebr", "zerd", "zyg"
         };
 
-        private readonly string[] nm6 =
+        private static readonly string[] nm6 =
         {
             "acal", "actyla", "acu", "aea", "aena", "aeris", "aeus", "agrus", "aica", "aicus", "aja", "al", "alia",
             "alis", "allus", "alunga", "alus", "ampus", "an", "andus", "ani", "anicus", "ans", "anus", "apra", "ardalis",

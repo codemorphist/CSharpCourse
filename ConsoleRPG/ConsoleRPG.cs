@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
-using ConsoleRPG.Interface;
+using static ConsoleRPG.Interface.TUI;
 
 namespace ConsoleRPG
 {
@@ -15,20 +15,7 @@ namespace ConsoleRPG
     {
         private static Random random = new Random();
         private static GameEngine Engine = new GameEngine();
-        public static InputOutputFunctions TUI = new InputOutputFunctions();
-
-        private static string InputValue(string text)
-        {
-            // This function return inputed by user value
-            Console.Write(text);    
-            return Console.ReadLine();
-        }
-
-        private static int InputInt(string text)
-        {
-            // This function return inputed by user integer
-            return Convert.ToInt32(InputValue(text));
-        }
+        private static Player player = null;
 
         private static void DrawHitLine(int len)
         {
@@ -37,10 +24,22 @@ namespace ConsoleRPG
             for (int i = 0; i < 50; i++)
             {
                 if (i == len)
-                    Console.Write("<*>");
+                    Print("<*>");
                 else
-                    Console.Write(" ");
+                    Print(" ");
             }
+        }
+
+        private static void CreateNewPlayer()
+        {
+            Print("Введіть ім'я персонажу: ", AlignPrint.Left);
+            string name = InputValue();
+
+            PrintMenu(new string[]{ "Варвар", "Танк", "Бандит" }, AlignPrint.Left);
+            Print("Виберіть тип: ", AlignPrint.Left);
+            int type = InputInt();
+
+            player = Engine.CreatePlayer(name, type);
         }
 
         private static void HitMechanic()
@@ -83,45 +82,51 @@ namespace ConsoleRPG
         {
             double health_percent = (double) health / (double) max_health;
 
+            ConsoleColor color;
             if (health_percent <= 0.25)
-                Console.ForegroundColor = ConsoleColor.Red;
+                color = ConsoleColor.Red;
             else if (health_percent < 0.5)
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                color = ConsoleColor.DarkYellow;
             else
-                Console.ForegroundColor = ConsoleColor.Green;
+                color = ConsoleColor.Green;
 
+            string health_bar = "";
             int size = 12;
-            Console.Write("\t[");
+            health_bar += "[";
             for (int i = 0; i < size; i++)
             {
                 if (i < health_percent * size)
-                 Console.Write("♥");
+                    health_bar += "♥";
                 else
-                 Console.Write(" ");
+                    health_bar += " ";
             }
-            Console.WriteLine("]");
-            Console.WriteLine($"\t{health} / {max_health}");
+            health_bar += "]";
+
+            PrintLine(health_bar, AlignPrint.Left, color);
+            PrintLine($"{health} / {max_health}", AlignPrint.Left, color);
 
             Console.ResetColor();
         }
 
         private static void ShowMonsterInfo(Monster monster)
         {
-            Console.WriteLine("\t" + monster.GetName());
+            PrintLine($"\n{monster.GetName()} [{monster.GetLevel()} Lv]", AlignPrint.Left);
             ShowHealth(monster.GetHealth(), monster.GetMaxHealth());
-            Console.WriteLine($"\t[Armor] : {monster.GetArmor()} ⛨");
-            Console.WriteLine($"\t[Strength] : {monster.GetStrength()} ⚔");
-            Console.WriteLine($"\t[Energy] : {monster.GetEnergy()} 🗲");
-            Console.WriteLine($"\t[Experience Points] : {monster.GetExperiencePoints()} ✪");
+            PrintLine($"[Armor] : {monster.GetArmor()}", AlignPrint.Left);
+            PrintLine($"[Strength] : {monster.GetStrength()}", AlignPrint.Left);
+            PrintLine($"[Energy] : {monster.GetEnergy()}", AlignPrint.Left);
+            PrintLine($"[Experience Points] : {monster.GetExperiencePoints()}", AlignPrint.Left);
         }
 
         private static void ShowPlayerInfo(Player player)
         {
-            Console.WriteLine("\t" + player.GetName());
+            PrintLine($"\n{player.GetName()} [{player.GetLevel()} Lv]", AlignPrint.Left);
             ShowHealth(player.GetHealth(), player.GetMaxHealth());
-            Console.WriteLine($"\t[Strength] : {player.GetStrength()} ⚔");
-            Console.WriteLine($"\t[Energy] : {player.GetEnergy()} 🗲");
-            Console.WriteLine($"\t[Experience Points] : {player.GetExperiencePoints()} ✪");
+            PrintLine($"[Strength] : {player.GetStrength()}", AlignPrint.Left);
+            PrintLine($"[Agility] : {player.GetAgility()}", AlignPrint.Left);
+            PrintLine($"[Endurance] : {player.GetEndurance()}", AlignPrint.Left);
+            PrintLine($"[Energy] : {player.GetEnergy()}", AlignPrint.Left);
+            PrintLine($"[Experience Points] : {player.GetExperiencePoints()}", AlignPrint.Left);
         }
 
         static void Main(string[] args)
@@ -130,16 +135,11 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            Player player = new Tank("Aaron");
+            CreateNewPlayer();
+
             Monster monster = Engine.GetMonster(player);
 
-            TUI.Print("Hello world!", InputOutputFunctions.AlignPrint.Center);
-            TUI.PrintByCords("Nice TExt", 1100, 2332);
-
             ShowPlayerInfo(player);
-
-            Console.WriteLine();
-
             ShowMonsterInfo(monster);
         }
     }
