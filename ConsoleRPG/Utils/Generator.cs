@@ -1,14 +1,19 @@
-﻿using System;
+﻿using ConsoleRPG.Creatures.Heros;
+using ConsoleRPG.Creatures.NPC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleRPG.Engine.Generators
+namespace ConsoleRPG.Utils
 {
-    static class NameGeneratror
+    static class Generator
     {
         private static readonly Random random = new Random();
+
+        public static int RandomNumber(int min, int max) => random.Next(min, max+1);
 
         public static string GenerateName()
         {

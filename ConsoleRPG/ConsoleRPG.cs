@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
-using static ConsoleRPG.Interface.TUI;
+
+using static ConsoleRPG.Interface.InputOutput;
 
 namespace ConsoleRPG
 {
     internal class ConsoleRPG
     {
-        private static Random random = new Random();
         private static GameEngine Engine = new GameEngine();
         private static Player player = null;
 

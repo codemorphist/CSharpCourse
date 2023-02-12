@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG.Interface
 {
-    public static class TUI
+    public static class InputOutput
     {
         public static string InputValue()
         {
