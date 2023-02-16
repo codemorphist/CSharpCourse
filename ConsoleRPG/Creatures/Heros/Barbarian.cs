@@ -10,7 +10,7 @@ namespace ConsoleRPG.Creatures.Heros
     {
         public Barbarian(string name) : base(name)
         {
-            SetStrength(80);
+            SetStrength(60);
         }
     }
 }

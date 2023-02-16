@@ -99,5 +99,14 @@ namespace ConsoleRPG.Interface
                 PrintLine($"[{i+1}] {menu[i]}", align, color, background);
             }
         }
+
+        public static void PrintArrayByCords(string[] array, int left, int top,
+                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                PrintByCords(array[i], left, top + i, color, background);
+            }
+        }
     }
 }

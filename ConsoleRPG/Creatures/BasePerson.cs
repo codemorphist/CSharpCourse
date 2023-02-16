@@ -18,7 +18,7 @@ namespace ConsoleRPG.Creature
 
         // Set functions
         public void SetLevel(int value) => Level = (value > 0) ? value : Level;
-        public void SetHealth(int value) => Health = (value > 0) ? value : Health;
+        public void SetHealth(int value) => Health = (value >= 0) ? value : 0;
         public void SetMaxHealth(int value) => MaxHealth = (value > 0) ? value : MaxHealth;
         public void SetEnergy(int value) => Energy = (value > 0) ? value : Energy;
         public void SetMaxEnergy(int value) => MaxEnergy = (value > 0) ? value : MaxEnergy;

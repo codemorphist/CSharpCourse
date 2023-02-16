@@ -14,53 +14,36 @@ namespace ConsoleRPG.Interface
 {
     static class GameGraphics
     {
-        private static void DrawHitLine(int len)
+        public static void DrawHitLine(int len)
         {
-            Console.SetCursorPosition((Console.WindowWidth - 50) / 2 - 1, 0);
+            string hitline = "[";
+
+            ConsoleColor color;
+            if (len >= 20 && len <= 30)
+                color = ConsoleColor.Red;
+            else if (len >= 10 && len <= 40)
+                color = ConsoleColor.Yellow;
+            else
+                color = ConsoleColor.Green;
 
             for (int i = 0; i < 50; i++)
             {
                 if (i == len)
-                    Print("<*>");
+                    hitline += "*";
                 else
-                    Print(" ");
+                    hitline += " ";
             }
+            hitline += "]";
+
+            PrintByCords(hitline, (Console.WindowWidth - hitline.Length) / 2, Console.WindowHeight / 2, color);
         }
 
-        public static void HitMechanic()
+        public static void DrawHitBar(int strength)
         {
-            int hit = RandomNumber(1, 51);
-            int direction = 1;
-
-            bool exit = false;
-
-            Task.Factory.StartNew(() =>
-            {
-                while (Console.ReadKey().Key != ConsoleKey.Spacebar) ;
-                exit = true;
-            });
-
-            int pause = 10;
-
-            while (!exit)
-            {
-                DrawHitLine(hit);
-
-                hit += direction;
-
-                if (hit == 51 || hit == 0)
-                    direction *= -1;
-
-                Thread.Sleep(pause);
-            }
-
-            if (hit > 25)
-            {
-                hit = 50 - hit;
-            }
-
-            Console.WriteLine();
-            Console.WriteLine(hit * 4);
+            PrintByCords("Натисніть [Space] щоб завдати удару!", (Console.WindowWidth - 36) / 2, Console.WindowHeight / 2 - 2);
+            PrintByCords("0", (Console.WindowWidth - 50) / 2 - 1, Console.WindowHeight / 2 + 1);
+            PrintByCords($"{strength}", Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 1);
+            PrintByCords("0", (Console.WindowWidth - 50) / 2 + 50, Console.WindowHeight / 2  + 1);
         }
 
         private static void ShowHealth(int health, int max_health)
@@ -89,8 +72,6 @@ namespace ConsoleRPG.Interface
 
             PrintLine(health_bar, AlignPrint.Left, color);
             PrintLine($"{health} / {max_health}", AlignPrint.Left, color);
-
-            Console.ResetColor();
         }
 
         public static void ShowMonsterInfo(Monster monster)
@@ -112,6 +93,16 @@ namespace ConsoleRPG.Interface
             PrintLine($"[Endurance] : {player.GetEndurance()}", AlignPrint.Left);
             PrintLine($"[Energy] : {player.GetEnergy()}", AlignPrint.Left);
             PrintLine($"[Experience Points] : {player.GetExperiencePoints()}", AlignPrint.Left);
+        }
+
+        public static void DeadScreen()
+        {
+            
+        }
+
+        public static void WinScreen()
+        {
+
         }
     }
 }

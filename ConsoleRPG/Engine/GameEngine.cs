@@ -10,6 +10,8 @@ using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Creatures.NPC;
 
 using static ConsoleRPG.Utils.Generator;
+using static ConsoleRPG.Interface.GameGraphics;
+using static ConsoleRPG.Interface.InputOutput;
 
 namespace ConsoleRPG.Engine
 {
@@ -46,6 +48,89 @@ namespace ConsoleRPG.Engine
                 default: 
                     return null;
             }
+        }
+
+        private int PlayerHit(int strength)
+        {
+            Console.Clear();
+
+            int hit = RandomNumber(1, 51);
+            int direction = 1;
+
+            bool exit = false;
+
+            Task.Factory.StartNew(() =>
+            {
+                while (Console.ReadKey().Key != ConsoleKey.Spacebar);
+                exit = true;
+            });
+
+            int pause = 10;
+
+            DrawHitBar(strength);
+
+            while (!exit)
+            {
+                DrawHitLine(hit);
+
+                hit += direction;
+
+                if (hit == 51 || hit == 0)
+                    direction *= -1;
+
+                Thread.Sleep(pause);
+            }
+
+            if (hit > 25)
+                hit = 50 - hit;
+
+            Console.Clear();
+            return (int) (strength * ((double) hit / 25));
+        }
+
+        private void DamageMonster(ref Monster monster, int damage)
+        {
+            if (damage < 0) return;
+
+            monster.SetHealth(monster.GetHealth() - damage);
+        }
+
+        private void DamagePlayer(ref Player player, int damage)
+        {
+            if (damage < 0) return;
+
+            player.SetHealth(player.GetHealth() - damage);
+        }
+
+        public int Battle(Player player, Monster monster)
+        {
+            int player_hit;
+            int monster_hit;
+
+            while(player.GetHealth() != 0 && monster.GetHealth() != 0)
+            {
+                Console.Clear();
+
+                player_hit = PlayerHit(player.GetStrength());
+                monster_hit = RandomNumber(0, monster.GetStrength());
+
+                DamageMonster(ref monster, player_hit);
+                DamagePlayer(ref player, monster_hit);
+
+                Print($"\n[INFO] Монстр вдарив вас з силою ({monster_hit})\n", color: ConsoleColor.Red);
+                ShowPlayerInfo(player);
+
+                Print($"\n\n[INFO] Ви завдали монстру удару з силою ({player_hit})\n", color: ConsoleColor.Cyan);
+                ShowMonsterInfo(monster);
+
+                Print("Натисніть будь-яку клавішу щоб продовжити...", AlignPrint.Center);
+                Console.ReadKey();
+            }
+
+            if (player.GetHealth() == 0)
+                return 0;
+            else
+                return 1;
         }
     }
 }

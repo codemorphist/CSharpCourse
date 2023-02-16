@@ -42,6 +42,20 @@ namespace ConsoleRPG
 
             ShowPlayerInfo(player);
             ShowMonsterInfo(monster);
+            
+            Print($"\nНатисніть будть-яку клаву щоб почати бій з {monster.GetName()}");
+            Console.ReadKey();
+
+            if (Engine.Battle(player, monster) == 1)
+            {
+                Console.Clear();
+                Console.WriteLine("You win!");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("You lose :(");
+            }
         }
     }
 }
