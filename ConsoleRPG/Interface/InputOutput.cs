@@ -41,6 +41,19 @@ namespace ConsoleRPG.Interface
             Console.Write(text);
         }
 
+        public static int MaxLenInStringArray(string[] array)
+        {
+            int max = 0;
+
+            foreach (string elem in array)
+            {
+                if (elem.Length > max)
+                    max = elem.Length;
+            }
+
+            return max;
+        }
+
         public enum AlignPrint
         {
             Right,

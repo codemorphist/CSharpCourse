@@ -27,7 +27,7 @@ namespace ConsoleRPG.Engine
             int armor = RandomNumber(100, 500);
             int max_armor = RandomNumber(armor, armor + 100);
             int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(10, 100);
+            int strength = RandomNumber(player.GetStrength() - 50, player.GetStrength() + 50);
             int expireance_points = RandomNumber(10, 200);
 
             return new Monster(name, level, health, max_health,
@@ -54,7 +54,7 @@ namespace ConsoleRPG.Engine
         {
             Console.Clear();
 
-            int hit = RandomNumber(1, 51);
+            int hit = RandomNumber(1, 50);
             int direction = 1;
 
             bool exit = false;
@@ -107,7 +107,15 @@ namespace ConsoleRPG.Engine
             int player_hit;
             int monster_hit;
 
-            while(player.GetHealth() != 0 && monster.GetHealth() != 0)
+            Console.Clear();
+
+            ShowPlayerInfo(player);
+            ShowMonsterInfo(monster);
+
+            Print("Натисніть будь-яку клавішу щоб почати бій...", AlignPrint.Center);
+            Console.ReadKey();
+
+            while (player.GetHealth() != 0 && monster.GetHealth() != 0)
             {
                 Console.Clear();
 

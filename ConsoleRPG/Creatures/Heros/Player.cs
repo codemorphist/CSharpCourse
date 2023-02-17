@@ -17,6 +17,13 @@ namespace ConsoleRPG.Creatures.Heros
         public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;
         public void SetEndurance(int value) => Endurance = (value > 0) ? value : Endurance;
 
+        public void LevelUp()
+        {
+            SetLevel(GetLevel() + 1);
+            SetStrength((int) (GetStrength() * 1.5));
+            SetHealth((int)(GetHealth() * 1.2));
+        }
+
         // Get functions
         public int GetAgility() => Agility;
         public int GetEndurance() => Endurance;

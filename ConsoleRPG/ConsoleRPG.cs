@@ -43,19 +43,19 @@ namespace ConsoleRPG
             ShowPlayerInfo(player);
             ShowMonsterInfo(monster);
             
-            Print($"\nНатисніть будть-яку клаву щоб почати бій з {monster.GetName()}");
+            Print($"\nНатисніть будть-яку клавішу щоб почати бій з {monster.GetName()}");
             Console.ReadKey();
 
-            if (Engine.Battle(player, monster) == 1)
+            while ( Engine.Battle(player, monster) == 1)
             {
-                Console.Clear();
-                Console.WriteLine("You win!");
+                WinScreen();
+                Console.ReadKey();
+
+                player.LevelUp();
+                monster = Engine.GetMonster(player);
             }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("You lose :(");
-            }
+
+            DeadScreen();
         }
     }
 }

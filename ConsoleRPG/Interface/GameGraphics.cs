@@ -97,12 +97,50 @@ namespace ConsoleRPG.Interface
 
         public static void DeadScreen()
         {
-            
+            Console.Clear();
+            string[] dead = {
+                            "You Lose!                     .___.",
+                            "          /)               ,-^     ^-. ",
+                            "         //               /           \\",
+                            ".-------| |--------------/  __     __  \\-------------------.__",
+                            "|WMWMWMW| |>>>>>>>>>>>>> | />>\\   />>\\ |>>>>>>>>>>>>>>>>>>>>>>:>",
+                            "`-------| |--------------| \\__/   \\__/ |-------------------'^^",
+                            "         \\\\               \\    /|\\    /",
+                            "          \\)               \\   \\_/   /",
+                            "                            |       |",
+                            "                            |+H+H+H+|",
+                            "                            \\       /",
+                            "                             ^-----^"};
+
+            PrintArrayByCords(dead, (Console.WindowWidth - MaxLenInStringArray(dead)) / 2, 
+                (Console.WindowHeight - dead.Length) / 2);
         }
 
         public static void WinScreen()
         {
+            Console.Clear();
 
+            string[] win = {
+                "|   |- - - - - - - - - - - - - - - - - - -|   |",
+                "| O |                                     | O |",
+                "|   |                                     |   |",
+                "| O |                                     | O |",
+                "|   |                                     |   |",
+                "| O |                                     | O |",
+                "|   |         ! Y O U   W I N !           |   |",
+                "| O |                                     | O |",
+                "|   |       P R E S S  A N Y  K E Y       |   |",
+                "| O |       T O  C O N T I N U E . . .    | O |",
+                "|   |                                     |   |",
+                "| O |                                     | O |",
+                "|   |                                     |   |",
+                "| O |                                     | O |",
+                "|   |                                     |   |",
+                "| O |- - - - - - - - - - - - - - - - - - -| O |"
+            };
+
+            PrintArrayByCords(win, (Console.WindowWidth - MaxLenInStringArray(win)) / 2, 
+                (Console.WindowHeight - win.Length) / 2);
         }
     }
 }
