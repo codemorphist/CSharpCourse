@@ -21,7 +21,7 @@ namespace ConsoleRPG.Creatures.Heros
         {
             SetLevel(GetLevel() + 1);
             SetStrength((int) (GetStrength() * 1.5));
-            SetHealth((int)(GetHealth() * 1.2));
+            SetHealth(600);
         }
 
         // Get functions
