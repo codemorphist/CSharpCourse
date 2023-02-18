@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Creatures.NPC;
 
 using static ConsoleRPG.Utils.Generator;
-using static ConsoleRPG.Interface.GameGraphics;
-using static ConsoleRPG.Interface.InputOutput;
+using static ConsoleRPG.Utils.GameGraphics;
+using static ConsoleRPG.Utils.InputOutput;
 
 namespace ConsoleRPG.Engine
 {
@@ -88,14 +84,14 @@ namespace ConsoleRPG.Engine
             return (int) (strength * ((double) hit / 25));
         }
 
-        private void DamageMonster(ref Monster monster, int damage)
+        private void DamageMonster(Player player, Monster monster, int damage)
         {
             if (damage < 0) return;
 
-            monster.SetHealth(monster.GetHealth() - damage);
+            player.UseSkill(0, monster);
         }
 
-        private void DamagePlayer(ref Player player, int damage)
+        private void DamagePlayer(Player player, int damage)
         {
             if (damage < 0) return;
 
@@ -122,8 +118,8 @@ namespace ConsoleRPG.Engine
                 player_hit = PlayerHit(player.GetStrength());
                 monster_hit = RandomNumber(0, monster.GetStrength());
 
-                DamageMonster(ref monster, player_hit);
-                DamagePlayer(ref player, monster_hit);
+                DamageMonster(player, monster, player_hit);
+                DamagePlayer(player, monster_hit);
 
                 Print($"\n[INFO] Монстр вдарив вас з силою ({monster_hit})\n", color: ConsoleColor.Red);
                 ShowPlayerInfo(player);

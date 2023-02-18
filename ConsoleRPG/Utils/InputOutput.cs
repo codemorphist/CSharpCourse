@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
-namespace ConsoleRPG.Interface
+namespace ConsoleRPG.Utils
 {
     public static class InputOutput
     {
@@ -119,6 +116,15 @@ namespace ConsoleRPG.Interface
             for (int i = 0; i < array.Length; i++)
             {
                 PrintByCords(array[i], left, top + i, color, background);
+            }
+        }
+
+        public static void AnimatedPrint(string text, int delay = 40)
+        {
+            foreach (char symb in text)
+            {
+                Console.Write(symb);
+                Thread.Sleep(delay);
             }
         }
     }

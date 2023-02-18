@@ -1,9 +1,7 @@
-﻿using System;
+﻿using ConsoleRPG.Creature;
+using ConsoleRPG.Creatures.NPC;
+using ConsoleRPG.Skills;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ConsoleRPG.Creature;
 
 namespace ConsoleRPG.Creatures.Heros
 {
@@ -13,15 +11,24 @@ namespace ConsoleRPG.Creatures.Heros
         private int Agility;
         private int Endurance;
 
+        protected List<ICombatSkill> Skills;
+
         // Set functions
         public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;
         public void SetEndurance(int value) => Endurance = (value > 0) ? value : Endurance;
 
+        // Skills functions
+        public void AddSkill(ICombatSkill skill) => Skills.Add(skill);
+        public void RemoveSkill(ICombatSkill skill) => Skills.Remove(skill);
+        public void UseSkill(int skill, Monster monster) => Skills[skill].UseSkill(monster);
+
+        // Game functions
         public void LevelUp()
         {
             SetLevel(GetLevel() + 1);
             SetStrength((int) (GetStrength() * 1.5));
-            SetHealth(600);
+            SetHealth(300 * GetLevel());
+            SetMaxHealth(GetHealth());
         }
 
         // Get functions
@@ -36,10 +43,12 @@ namespace ConsoleRPG.Creatures.Heros
             SetMaxHealth(600);
             SetEnergy(100);
             SetMaxEnergy(100);
-            SetStrength(50);
+            SetStrength(200);
             SetAgility(100);
             SetEndurance(100);
             SetExperiencePoints(100);
+
+            Skills = new List<ICombatSkill>();
         }
     }
 }

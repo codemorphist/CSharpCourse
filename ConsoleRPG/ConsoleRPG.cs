@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
+using ConsoleRPG.Skills;
 
-using static ConsoleRPG.Interface.InputOutput;
-using static ConsoleRPG.Interface.GameGraphics;
+using static ConsoleRPG.Utils.InputOutput;
+using static ConsoleRPG.Utils.GameGraphics;
+using static ConsoleRPG.Utils.Animation;
+using static ConsoleRPG.Utils.Resources;
 
 namespace ConsoleRPG
 {
@@ -40,13 +40,15 @@ namespace ConsoleRPG
 
             Monster monster = Engine.GetMonster(player);
 
+            player.AddSkill(new ForceSprint());
+
             ShowPlayerInfo(player);
             ShowMonsterInfo(monster);
-            
+
             Print($"\nНатисніть будть-яку клавішу щоб почати бій з {monster.GetName()}");
             Console.ReadKey();
 
-            while ( Engine.Battle(player, monster) == 1)
+            while (Engine.Battle(player, monster) == 1)
             {
                 WinScreen();
                 Console.ReadKey();

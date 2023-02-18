@@ -51,14 +51,19 @@
     <Compile Include="Creatures\NPC\Monster.cs" />
     <Compile Include="Creatures\Heros\Player.cs" />
     <Compile Include="ConsoleRPG.cs" />
-    <Compile Include="Interface\GameGraphics.cs" />
+    <Compile Include="Skills\CombatSkills.cs" />
+    <Compile Include="Utils\Animation.cs" />
+    <Compile Include="Utils\GameGraphics.cs" />
+    <Compile Include="Utils\Resources.cs" />
     <Compile Include="Utils\Generator.cs" />
-    <Compile Include="Interface\InputOutput.cs" />
+    <Compile Include="Utils\InputOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

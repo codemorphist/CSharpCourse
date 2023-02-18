@@ -1,16 +1,12 @@
-﻿using ConsoleRPG.Creatures.Heros;
-using ConsoleRPG.Creatures.NPC;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 
-using static ConsoleRPG.Interface.InputOutput;
+using ConsoleRPG.Creatures.Heros;
+using ConsoleRPG.Creatures.NPC;
+
+using static ConsoleRPG.Utils.InputOutput;
 using static ConsoleRPG.Utils.Generator;
 
-namespace ConsoleRPG.Interface
+namespace ConsoleRPG.Utils
 {
     static class GameGraphics
     {
