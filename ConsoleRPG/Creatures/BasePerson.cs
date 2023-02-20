@@ -28,7 +28,7 @@
         public int GetStrength() => Strength;
         public int GetExperiencePoints() => ExperiencePoints;
 
-        // Class constructor
+        // BasePerson constructor
         public BasePerson (string name)
         {
             Name = name;

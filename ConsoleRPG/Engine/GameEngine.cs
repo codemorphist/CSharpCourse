@@ -84,18 +84,16 @@ namespace ConsoleRPG.Engine
             return (int) (strength * ((double) hit / 25));
         }
 
-        private void DamageMonster(Player player, Monster monster, int damage)
+        private void DamageMonster(Player player, Monster monster)
         {
-            if (damage < 0) return;
-
-            monster.SetHealth(monster.GetHealth() - damage);
+            if (player.GetWeapon() != null)
+            {
+                player.GetWeapon().UseWeapon(player, monster);
+            }
         }
 
-        private void DamagePlayer(Player player, int damage)
-        {
-            if (damage < 0) return;
-
-            player.SetHealth(100000000);
+        private void DamagePlayer(Player player, Monster monster)
+        {   
         }
 
         public int Battle(Player player, Monster monster)
@@ -115,16 +113,13 @@ namespace ConsoleRPG.Engine
             {
                 Console.Clear();
 
-                player_hit = PlayerHit(player.GetStrength());
-                monster_hit = RandomNumber(0, monster.GetStrength());
+                DamageMonster(player, monster);
+                DamagePlayer(player, monster);
 
-                DamageMonster(player, monster, player_hit);
-                DamagePlayer(player, monster_hit);
-
-                Print($"\n[INFO] Монстр вдарив вас з силою ({monster_hit})\n", color: ConsoleColor.Red);
+                Print($"\n[INFO] Монстр вдарив вас з силою ({0})\n", color: ConsoleColor.Red);
                 ShowPlayerInfo(player);
 
-                Print($"\n\n[INFO] Ви завдали монстру удару з силою ({player_hit})\n", color: ConsoleColor.Cyan);
+                Print($"\n\n[INFO] Ви завдали монстру удару з силою ({0})\n", color: ConsoleColor.Cyan);
                 ShowMonsterInfo(monster);
 
                 Print("Натисніть будь-яку клавішу щоб продовжити...", AlignPrint.Center);

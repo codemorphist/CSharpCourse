@@ -1,10 +1,10 @@
-﻿using ConsoleRPG.Creature;
+﻿using System;
+using System.Collections.Generic;
+
+using ConsoleRPG.Creature;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Ithems;
 using ConsoleRPG.Skills;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace ConsoleRPG.Creatures.Heros
 {
@@ -15,7 +15,7 @@ namespace ConsoleRPG.Creatures.Heros
         private int Endurance;
 
         // Initialization of skills
-        protected List<ICombatSkill> Skills;
+        private List<ICombatSkill> Skills;
 
         // Skills functions
         public List<ICombatSkill> GetSkills() => Skills; // This function return all skill
@@ -26,7 +26,7 @@ namespace ConsoleRPG.Creatures.Heros
         // 2: Chest
         // 3: Leggins
         // 4: Boots
-        protected Armor[] Armors;
+        private Armor[] Armors;
 
         // Armor functions
         public void PutAwayArmor(ArmorType type, Armor armor)
@@ -50,7 +50,11 @@ namespace ConsoleRPG.Creatures.Heros
         public Armor GetArmor(ArmorType type) => Armors[(int) type];
 
         // Initialization of weapon
-        protected IWeapon Weapon;
+        private IWeapon PlayerWeapon;
+
+        // Weapon functions
+        public IWeapon GetWeapon() => PlayerWeapon;
+        public void SetWeapon(IWeapon weapon) => PlayerWeapon = weapon; 
 
         // Set functions
         public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;

@@ -23,7 +23,7 @@ namespace ConsoleRPG
             Print("Введіть ім'я персонажу: ", AlignPrint.Left);
             string name = InputValue();
 
-            PrintMenu(new string[] { "Варвар", "Танк", "Бандит" }, AlignPrint.Left);
+            PrintMenu(new string[] { "[1] Варвар", "[2] Танк", "[3] Бандит" }, AlignPrint.Left);
             Print("Виберіть тип: ", AlignPrint.Left);
             int type = InputInt();
 
@@ -76,9 +76,7 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            Console.ReadKey();
-
-            MainScreen();
+            PlayGame();
         }
     }
 }

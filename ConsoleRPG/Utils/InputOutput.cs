@@ -107,13 +107,9 @@ namespace ConsoleRPG.Utils
         public static void PrintMenu(string[] menu, AlignPrint align = AlignPrint.None,
                           ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
         {
-            int left = (Console.WindowWidth - MaxLenInStringArray(menu)) / 2;
-
             foreach (string elem in menu)
             {
-                Console.SetCursorPosition(left, Console.CursorTop);
-                Print(elem, AlignPrint.None, color, background);
-                Console.CursorTop += 1;
+                PrintLine(elem, align, color, background);
             }
         }
 
