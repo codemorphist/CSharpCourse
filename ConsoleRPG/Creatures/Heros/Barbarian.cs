@@ -1,6 +1,6 @@
 ﻿namespace ConsoleRPG.Creatures.Heros
 {
-    internal class Barbarian : Player
+    class Barbarian : Player
     {
         public Barbarian(string name) : base(name)
         {

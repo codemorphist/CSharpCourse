@@ -15,15 +15,15 @@ namespace ConsoleRPG.Engine
     {        
         public Monster GetMonster(Player player)
         {
-            /* This function generaate Monster by Player characteristics */
+            /* This function generate Monster by Player characteristics */
             string name = GenerateName();
             int level = RandomNumber(player.GetLevel(), player.GetLevel() + 2);
-            int health = RandomNumber(player.GetHealth() - 100, player.GetHealth() + 100);
-            int max_health = RandomNumber(health, health + 500);
+            int health = RandomNumber(player.GetHealth() - 100, player.GetHealth());
+            int max_health = RandomNumber(health, health + 100);
             int armor = RandomNumber(100, 500);
             int max_armor = RandomNumber(armor, armor + 100);
             int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(player.GetStrength() - 50, player.GetStrength() + 50);
+            int strength = RandomNumber(player.GetStrength() - 300, player.GetStrength() - 200);
             int expireance_points = RandomNumber(10, 200);
 
             return new Monster(name, level, health, max_health,
@@ -88,14 +88,14 @@ namespace ConsoleRPG.Engine
         {
             if (damage < 0) return;
 
-            player.UseSkill(0, monster);
+            monster.SetHealth(monster.GetHealth() - damage);
         }
 
         private void DamagePlayer(Player player, int damage)
         {
             if (damage < 0) return;
 
-            player.SetHealth(player.GetHealth() - damage);
+            player.SetHealth(100000000);
         }
 
         public int Battle(Player player, Monster monster)

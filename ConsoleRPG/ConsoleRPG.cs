@@ -15,8 +15,8 @@ namespace ConsoleRPG
 {
     internal class ConsoleRPG
     {
-        private static GameEngine Engine = new GameEngine();
-        private static Player player = null;
+        private static GameEngine Engine;
+        private static Player player;
 
         private static void CreateNewPlayer()
         {
@@ -29,24 +29,17 @@ namespace ConsoleRPG
 
             player = Engine.CreatePlayer(name, type);
         }
-
-        static void Main(string[] args)
+        
+        private static void PlayGame()
         {
-            // Enable support Unicode input and output
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.InputEncoding = Encoding.UTF8;
+            Engine = new GameEngine();
 
             CreateNewPlayer();
 
             Monster monster = Engine.GetMonster(player);
 
-            player.AddSkill(new ForceSprint());
-
             ShowPlayerInfo(player);
             ShowMonsterInfo(monster);
-
-            Print($"\nНатисніть будть-яку клавішу щоб почати бій з {monster.GetName()}");
-            Console.ReadKey();
 
             while (Engine.Battle(player, monster) == 1)
             {
@@ -58,6 +51,34 @@ namespace ConsoleRPG
             }
 
             DeadScreen();
+        }
+
+        private static void MainScreen()
+        {
+            DrawMainScreen();
+            PrintMenu(new string[] { "[S] Start Game", "[E] Exit" }, AlignPrint.Center);
+
+            switch(Console.ReadKey().Key)
+            {
+                case ConsoleKey.S:
+                    Console.Clear();
+                    PlayGame();
+                    break;
+                case ConsoleKey.E:
+                    Console.Clear();
+                    return;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            // Enable support Unicode input and output
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
+            Console.ReadKey();
+
+            MainScreen();
         }
     }
 }

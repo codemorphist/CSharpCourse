@@ -56,8 +56,11 @@ namespace ConsoleRPG.Utils
             Right,
             Center,
             Left,
+            Top,
+            Bottom,
             None
         }
+
 
         public static void Print(string text, AlignPrint align = AlignPrint.None, 
                           ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
@@ -104,9 +107,36 @@ namespace ConsoleRPG.Utils
         public static void PrintMenu(string[] menu, AlignPrint align = AlignPrint.None,
                           ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
         {
-            for(int i = 0; i < menu.Length; i++)
+            int left = (Console.WindowWidth - MaxLenInStringArray(menu)) / 2;
+
+            foreach (string elem in menu)
             {
-                PrintLine($"[{i+1}] {menu[i]}", align, color, background);
+                Console.SetCursorPosition(left, Console.CursorTop);
+                Print(elem, AlignPrint.None, color, background);
+                Console.CursorTop += 1;
+            }
+        }
+
+        public static void PrintArray(string[] array, AlignPrint x_align = AlignPrint.None, AlignPrint y_align = AlignPrint.None,
+                                    ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        {
+            switch(y_align)
+            {
+                case AlignPrint.Top:
+                    Console.SetCursorPosition(Console.CursorLeft, 0);
+                    break;
+                case AlignPrint.Center:
+                    Console.SetCursorPosition(Console.CursorLeft, (Console.WindowHeight - array.Length) / 2);
+                    break;
+                case AlignPrint.Bottom:
+                    Console.SetCursorPosition(Console.CursorLeft, Console.WindowHeight);
+                    break;
+            }
+
+            for (int i = 0; i < array.Length; i++)
+            {
+
+                PrintLine(array[i], x_align, color, background);
             }
         }
 

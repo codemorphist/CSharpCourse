@@ -1,17 +1,56 @@
 ﻿using ConsoleRPG.Creature;
 using ConsoleRPG.Creatures.NPC;
+using ConsoleRPG.Ithems;
 using ConsoleRPG.Skills;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ConsoleRPG.Creatures.Heros
 {
-    internal class Player : BasePerson
+    class Player : BasePerson
     {
         // Initialization of characteristics
         private int Agility;
         private int Endurance;
 
+        // Initialization of skills
         protected List<ICombatSkill> Skills;
+
+        // Skills functions
+        public List<ICombatSkill> GetSkills() => Skills; // This function return all skill
+        public ICombatSkill GetSkill(int index) => Skills[index]; // This function return specific skill
+
+        // Initialization of armor
+        // 1: Helmet
+        // 2: Chest
+        // 3: Leggins
+        // 4: Boots
+        protected Armor[] Armors;
+
+        // Armor functions
+        public void PutAwayArmor(ArmorType type, Armor armor)
+        {
+            /* This function puts Armor on a specific part of the player's body */
+
+            try
+            {
+                if ((int) type > Armors.Length - 1)
+                    throw new Exception("Не можливо вдягнути броню на цю чатину тіла");
+
+                Armors[(int) type] = armor;
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine($"[ERROR] {ex.Message}");
+            }
+        }
+
+        // This function return Armor from specific part of the player's body
+        public Armor GetArmor(ArmorType type) => Armors[(int) type];
+
+        // Initialization of weapon
+        protected IWeapon Weapon;
 
         // Set functions
         public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;
@@ -22,18 +61,18 @@ namespace ConsoleRPG.Creatures.Heros
         public void RemoveSkill(ICombatSkill skill) => Skills.Remove(skill);
         public void UseSkill(int skill, Monster monster) => Skills[skill].UseSkill(monster);
 
+        // Get functions
+        public int GetAgility() => Agility;
+        public int GetEndurance() => Endurance;
+
         // Game functions
         public void LevelUp()
         {
             SetLevel(GetLevel() + 1);
             SetStrength((int) (GetStrength() * 1.5));
-            SetHealth(300 * GetLevel());
+            SetHealth(400 * GetLevel());
             SetMaxHealth(GetHealth());
         }
-
-        // Get functions
-        public int GetAgility() => Agility;
-        public int GetEndurance() => Endurance;
 
         // Player Class constructor
         public Player(string name) : base (name)
@@ -49,6 +88,7 @@ namespace ConsoleRPG.Creatures.Heros
             SetExperiencePoints(100);
 
             Skills = new List<ICombatSkill>();
+            Armors = new Armor[4];
         }
     }
 }
