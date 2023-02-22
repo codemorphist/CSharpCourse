@@ -1,4 +1,4 @@
-﻿using ConsoleRPG.Ithems;
+﻿using ConsoleRPG.Items;
 
 namespace ConsoleRPG.Creatures.Heros
 {

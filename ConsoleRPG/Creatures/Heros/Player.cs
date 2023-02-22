@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using ConsoleRPG.Creature;
 using ConsoleRPG.Creatures.NPC;
-using ConsoleRPG.Ithems;
+using ConsoleRPG.Items;
 using ConsoleRPG.Skills;
 
 namespace ConsoleRPG.Creatures.Heros

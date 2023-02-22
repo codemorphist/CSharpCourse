@@ -1,7 +1,7 @@
 ﻿using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Creatures.NPC;
 
-namespace ConsoleRPG.Ithems
+namespace ConsoleRPG.Items
 {
     // Interface for Weapons
     interface IWeapon
@@ -11,7 +11,7 @@ namespace ConsoleRPG.Ithems
     }
     
     // Weapon class
-    abstract class Weapon : Ithem
+    abstract class Weapon : Item
     {
         protected int Damage;
 

@@ -40,13 +40,13 @@ namespace ConsoleRPG.Skills
         public HyperHit() : base() { }
     }
 
-    class MagicHit : CombatSkill, ICombatSkill
+    class HeavyHit : CombatSkill, ICombatSkill
     {
         public void UseSkill(Monster monster)
         {
             monster.SetHealth(monster.GetHealth() - 400);
         }
 
-        public MagicHit() : base() { }
+        public HeavyHit() : base() { }
     }
 }

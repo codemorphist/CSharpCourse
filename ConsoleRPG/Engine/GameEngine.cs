@@ -12,37 +12,43 @@ using static ConsoleRPG.Utils.InputOutput;
 namespace ConsoleRPG.Engine
 {
     internal class GameEngine
-    {        
-        public Monster GetMonster(Player player)
+    {
+        private Player GamePlayer;
+
+        public Monster GetMonster()
         {
             /* This function generate Monster by Player characteristics */
             string name = GenerateName();
-            int level = RandomNumber(player.GetLevel(), player.GetLevel() + 2);
-            int health = RandomNumber(player.GetHealth() - 100, player.GetHealth());
+            int level = RandomNumber(GamePlayer.GetLevel(), GamePlayer.GetLevel() + 2);
+            int health = RandomNumber(GamePlayer.GetHealth() - 100, GamePlayer.GetHealth());
             int max_health = RandomNumber(health, health + 100);
             int armor = RandomNumber(100, 500);
             int max_armor = RandomNumber(armor, armor + 100);
             int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(player.GetStrength() - 300, player.GetStrength() - 200);
+            int strength = RandomNumber(GamePlayer.GetStrength() - 300, GamePlayer.GetStrength() - 200);
             int expireance_points = RandomNumber(10, 200);
 
             return new Monster(name, level, health, max_health,
                                 armor, max_armor, strength, energy, expireance_points);
         }
 
-        public Player CreatePlayer(string name, int type)
+        public void CreatePlayer(string name, int type)
         {
             /* This function return Player with some type and name */ 
             switch (type) 
             {
                 case 1:
-                    return new Barbarian(name);
+                    GamePlayer = new Barbarian(name);
+                    break;
                 case 2:
-                    return new Tank(name);
+                    GamePlayer = new Tank(name);
+                    break;
                 case 3:
-                    return new Bandit(name);
+                    GamePlayer = new Bandit(name);
+                    break;
                 default: 
-                    return null;
+                    GamePlayer = null;
+                    break;
             }
         }
 
@@ -84,40 +90,40 @@ namespace ConsoleRPG.Engine
             return (int) (strength * ((double) hit / 25));
         }
 
-        private void DamageMonster(Player player, Monster monster)
+        private void DamageMonster(Monster monster)
         {
-            if (player.GetWeapon() != null)
+            if (GamePlayer.GetWeapon() != null)
             {
-                player.GetWeapon().UseWeapon(player, monster);
+                GamePlayer.GetWeapon().UseWeapon(GamePlayer, monster);
             }
         }
 
-        private void DamagePlayer(Player player, Monster monster)
+        private void DamagePlayer(Monster monster)
         {   
         }
 
-        public int Battle(Player player, Monster monster)
+        public int Battle(Monster monster)
         {
             int player_hit;
             int monster_hit;
 
             Console.Clear();
 
-            ShowPlayerInfo(player);
+            ShowPlayerInfo(GamePlayer);
             ShowMonsterInfo(monster);
 
             Print("Натисніть будь-яку клавішу щоб почати бій...", AlignPrint.Center);
             Console.ReadKey();
 
-            while (player.GetHealth() != 0 && monster.GetHealth() != 0)
+            while (GamePlayer.GetHealth() != 0 && monster.GetHealth() != 0)
             {
                 Console.Clear();
 
-                DamageMonster(player, monster);
-                DamagePlayer(player, monster);
+                DamageMonster(monster);
+                DamagePlayer(monster);
 
                 Print($"\n[INFO] Монстр вдарив вас з силою ({0})\n", color: ConsoleColor.Red);
-                ShowPlayerInfo(player);
+                ShowPlayerInfo(GamePlayer);
 
                 Print($"\n\n[INFO] Ви завдали монстру удару з силою ({0})\n", color: ConsoleColor.Cyan);
                 ShowMonsterInfo(monster);
@@ -126,7 +132,7 @@ namespace ConsoleRPG.Engine
                 Console.ReadKey();
             }
 
-            if (player.GetHealth() == 0)
+            if (GamePlayer.GetHealth() == 0)
                 return 0;
             else
                 return 1;

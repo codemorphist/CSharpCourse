@@ -1,4 +1,0 @@
-﻿namespace ConsoleRPG.Skills
-{
-       
-}

@@ -1,4 +1,4 @@
-﻿namespace ConsoleRPG.Ithems
+﻿namespace ConsoleRPG.Items
 {
     enum ArmorType
     {
@@ -8,7 +8,7 @@
         Boots
     }
 
-    class Armor : Ithem
+    class Armor : Item
     {
         protected int ArmorPoints;
 

@@ -4,19 +4,20 @@ using System.Text;
 using ConsoleRPG.Creatures.NPC;
 using ConsoleRPG.Creatures.Heros;
 using ConsoleRPG.Engine;
-using ConsoleRPG.Skills;
+using ConsoleRPG.Items;
 
 using static ConsoleRPG.Utils.InputOutput;
 using static ConsoleRPG.Utils.GameGraphics;
 using static ConsoleRPG.Utils.Animation;
 using static ConsoleRPG.Utils.Resources;
+using static ConsoleRPG.Utils.Generator;
 
 namespace ConsoleRPG
 {
     internal class ConsoleRPG
     {
-        private static GameEngine Engine;
-        private static Player player;
+        public static GameEngine Engine;
+        public static Player player;
 
         private static void CreateNewPlayer()
         {
@@ -27,27 +28,23 @@ namespace ConsoleRPG
             Print("Виберіть тип: ", AlignPrint.Left);
             int type = InputInt();
 
-            player = Engine.CreatePlayer(name, type);
+            Engine.CreatePlayer(name, type);
         }
-        
+
         private static void PlayGame()
         {
             Engine = new GameEngine();
 
             CreateNewPlayer();
 
-            Monster monster = Engine.GetMonster(player);
+            Monster monster = Engine.GetMonster();
 
-            ShowPlayerInfo(player);
-            ShowMonsterInfo(monster);
-
-            while (Engine.Battle(player, monster) == 1)
+            while (Engine.Battle(monster) == 1)
             {
                 WinScreen();
                 Console.ReadKey();
 
-                player.LevelUp();
-                monster = Engine.GetMonster(player);
+                monster = Engine.GetMonster();
             }
 
             DeadScreen();
@@ -55,10 +52,10 @@ namespace ConsoleRPG
 
         private static void MainScreen()
         {
-            DrawMainScreen();
+            //DrawMainScreen();
             PrintMenu(new string[] { "[S] Start Game", "[E] Exit" }, AlignPrint.Center);
 
-            switch(Console.ReadKey().Key)
+            switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.S:
                     Console.Clear();
@@ -76,7 +73,13 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            PlayGame();
+            while (true)
+            {
+                Console.WriteLine(GenerateIthemName(IthemType.Helmet, IthemRank.Heavy));
+                Console.ReadLine();
+            }
+            
         }
     }
 }
+
