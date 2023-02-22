@@ -43,14 +43,25 @@ namespace ConsoleRPG.Items
         }
     }
 
-    // Ax class (Prioritet for Bandit)
-    class Ax : Weapon, IWeapon
+    // Axe class (Prioritet for Bandit)
+    class Axe : Weapon, IWeapon
     {
-        public Ax(string name, int level, int damage) : base(name, level, damage) { }
+        public Axe(string name, int level, int damage) : base(name, level, damage) { }
 
         public void UseWeapon(Player player, Monster monster)
         {
             
+        }
+    }
+
+    // Spears class (Universall for all)
+    class Spears : Weapon, IWeapon
+    {
+        public Spears(string name, int level, int damage) : base(name, level, damage) { }
+
+        public void UseWeapon(Player player, Monster monster)
+        {
+
         }
     }
 }

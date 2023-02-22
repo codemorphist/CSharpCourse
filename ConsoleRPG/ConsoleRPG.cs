@@ -11,13 +11,13 @@ using static ConsoleRPG.Utils.GameGraphics;
 using static ConsoleRPG.Utils.Animation;
 using static ConsoleRPG.Utils.Resources;
 using static ConsoleRPG.Utils.Generator;
+using ConsoleRPG.Utils;
 
 namespace ConsoleRPG
 {
     internal class ConsoleRPG
     {
         public static GameEngine Engine;
-        public static Player player;
 
         private static void CreateNewPlayer()
         {
@@ -29,6 +29,14 @@ namespace ConsoleRPG
             int type = InputInt();
 
             Engine.CreatePlayer(name, type);
+        }
+
+        private static void AnimationTest()
+        {
+            Animation Phenix = new Animation(phenix_anim);
+            Phenix.DrawAnimation(120);
+
+            Console.ReadKey();
         }
 
         private static void PlayGame()
@@ -75,10 +83,14 @@ namespace ConsoleRPG
 
             while (true)
             {
-                Console.WriteLine(GenerateItemName(IthemType.Helmet, IthemRank.Heavy));
-                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine($"Sword: {GenerateWeaponName(IthemType.Sword)}");
+                Console.WriteLine($"Hummer: {GenerateWeaponName(IthemType.Hummer)}");
+                Console.WriteLine($"Axe: {GenerateWeaponName(IthemType.Axe)}");
+                Console.WriteLine($"Spear: {GenerateWeaponName(IthemType.Spear)}");
+
+                Console.ReadKey();
             }
-            
         }
     }
 }

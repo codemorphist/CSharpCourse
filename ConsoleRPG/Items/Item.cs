@@ -5,7 +5,8 @@
         // Weapon
         Sword,
         Hummer,
-        Ax,
+        Axe,
+        Spear,
 
         //Armor
         Helmet,

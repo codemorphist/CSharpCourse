@@ -1,9 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
+
 using ConsoleRPG.Items;
-using Microsoft.SqlServer.Server;
 using static ConsoleRPG.Utils.Dictionaries;
 
 namespace ConsoleRPG.Utils
@@ -48,7 +45,7 @@ namespace ConsoleRPG.Utils
             return nm5[nameIndex1] + nm6[nameIndex2];
         }
 
-        public static string GenerateItemName(IthemType type, IthemRank rank)
+        public static string GenerateArmorName(IthemType type, IthemRank rank)
         {
             /* This function return random name of Item by type */
             switch (type)
@@ -66,13 +63,25 @@ namespace ConsoleRPG.Utils
             }
         }
 
-        public static string GenerateWeaponName()
+        public static string GenerateWeaponName(IthemType type)
         {
             /* This function return random Weapon name */
-            return "";
+            switch (type)
+            {
+                case IthemType.Sword:
+                    return GenerateSwordName();
+                case IthemType.Hummer:
+                    return GenerateHummerName();
+                case IthemType.Axe:
+                    return GenerateAxeName();
+                case IthemType.Spear:
+                    return GenerateSpearName();
+                default:
+                    return "";
+            }
         }
 
-        public static string GenerateHelmetName(IthemRank rank)
+        private static string GenerateHelmetName(IthemRank rank)
         {
             /* This function return random Helmet name */
             int generator_type = random.Next(1, 6);
@@ -80,21 +89,21 @@ namespace ConsoleRPG.Utils
             switch (generator_type)
             {
                 case 1:
-                    return Generator1(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight);
+                    return ArmorGenerator1(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight);
                 case 2:
-                    return Generator2(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator2(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 3:
-                    return Generator3(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator3(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 4:
-                    return Generator4(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight);
+                    return ArmorGenerator4(rank == IthemRank.Heavy ? HelmetHeavy : HelmetLight);
                 case 5:
-                    return Generator5();
+                    return ArmorGenerator5();
+                default:
+                    return "";
             }
-
-            return "";
         }
 
-        public static string GenerateChestName(IthemRank rank)
+        private static string GenerateChestName(IthemRank rank)
         {
             /* This function return random Armor name */
             int generator_type = random.Next(1,6);
@@ -102,21 +111,21 @@ namespace ConsoleRPG.Utils
             switch(generator_type)
             {
                 case 1:
-                    return Generator1(rank == IthemRank.Heavy ? ChestHeavy : ChestLight);
+                    return ArmorGenerator1(rank == IthemRank.Heavy ? ChestHeavy : ChestLight);
                 case 2:
-                    return Generator2(rank == IthemRank.Heavy ? ChestHeavy : ChestLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator2(rank == IthemRank.Heavy ? ChestHeavy : ChestLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 3:
-                    return Generator3(rank == IthemRank.Heavy ? ChestHeavy : ChestLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator3(rank == IthemRank.Heavy ? ChestHeavy : ChestLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 4:
-                    return Generator4(rank == IthemRank.Heavy ? ChestHeavy : ChestLight);
+                    return ArmorGenerator4(rank == IthemRank.Heavy ? ChestHeavy : ChestLight);
                 case 5:
-                    return Generator5();
+                    return ArmorGenerator5();
+                default:
+                    return "";
             }
-
-            return "";
         }
 
-        public static string GenerateLegginsName(IthemRank rank)
+        private static string GenerateLegginsName(IthemRank rank)
         {
             /* This function return random Leggins name */
             int generator_type = random.Next(1, 6);
@@ -124,21 +133,21 @@ namespace ConsoleRPG.Utils
             switch (generator_type)
             {
                 case 1:
-                    return Generator1(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight);
+                    return ArmorGenerator1(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight);
                 case 2:
-                    return Generator2(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator2(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 3:
-                    return Generator3(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator3(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 4:
-                    return Generator4(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight);
+                    return ArmorGenerator4(rank == IthemRank.Heavy ? LegginsHeavy : LegginsLight);
                 case 5:
-                    return Generator5();
+                    return ArmorGenerator5();
+                default:
+                    return "";
             }
-
-            return "";
         }
 
-        public static string GenerateBootsName(IthemRank rank)
+        private static string GenerateBootsName(IthemRank rank)
         {
             /* This function return random Boots name */
             int generator_type = random.Next(1, 6);
@@ -146,16 +155,96 @@ namespace ConsoleRPG.Utils
             switch (generator_type)
             {
                 case 1:
-                    return Generator1(rank == IthemRank.Heavy ? BootsHeavy : BootsLight);
+                    return ArmorGenerator1(rank == IthemRank.Heavy ? BootsHeavy : BootsLight);
                 case 2:
-                    return Generator2(rank == IthemRank.Heavy ? BootsHeavy : BootsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator2(rank == IthemRank.Heavy ? BootsHeavy : BootsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 3:
-                    return Generator3(rank == IthemRank.Heavy ? BootsHeavy : BootsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
+                    return ArmorGenerator3(rank == IthemRank.Heavy ? BootsHeavy : BootsLight, rank == IthemRank.Heavy ? MaterialHeavy : MaterialLight);
                 case 4:
-                    return Generator4(rank == IthemRank.Heavy ? BootsHeavy : BootsLight);
+                    return ArmorGenerator4(rank == IthemRank.Heavy ? BootsHeavy : BootsLight);
+                default:
+                    return "";
             }
+        }
 
-            return "";
+        private static string GenerateSwordName()
+        {
+            /* This function return random Sword name */
+            int generator_type = random.Next(1, 5);
+
+            switch (generator_type)
+            {
+                case 1:
+                    return WeaponGenerator1();
+                case 2:
+                    return WeaponGenerator2(SwordNames);
+                case 3:
+                    return WeaponGenerator3(SwordNames);
+                case 4:
+                    return WeaponGenerator4(SwordNames);
+                default:
+                    return "";
+            }
+        }
+
+        private static string GenerateHummerName()
+        {
+            /* This function return random Hummer name */
+            int generator_type = random.Next(1, 5);
+
+            switch (generator_type)
+            {
+                case 1:
+                    return WeaponGenerator1();
+                case 2:
+                    return WeaponGenerator2(HummerNames);
+                case 3:
+                    return WeaponGenerator3(HummerNames);
+                case 4:
+                    return WeaponGenerator4(HummerNames);
+                default:
+                    return "";
+            }
+        }
+
+        private static string GenerateAxeName() 
+        {
+            /* This function return random Axe name */
+            int generator_type = random.Next(1, 5);
+
+            switch (generator_type)
+            {
+                case 1:
+                    return WeaponGenerator1();
+                case 2:
+                    return WeaponGenerator2(AxeNames);
+                case 3:
+                    return WeaponGenerator3(AxeNames);
+                case 4:
+                    return WeaponGenerator4(AxeNames);
+                default:
+                    return "";
+            }
+        }
+
+        private static string GenerateSpearName()
+        {
+            /* This function return random Spear name */
+            int generator_type = random.Next(1, 5);
+
+            switch (generator_type)
+            {
+                case 1:
+                    return WeaponGenerator1();
+                case 2:
+                    return WeaponGenerator2(SpearNames);
+                case 3:
+                    return WeaponGenerator3(SpearNames);
+                case 4:
+                    return WeaponGenerator4(SpearNames);
+                default:
+                    return "";
+            }
         }
 
         private static string RandomElem(string[] array)
@@ -164,33 +253,57 @@ namespace ConsoleRPG.Utils
         }
 
         // Generate like 'Chest of Adjective Noun'
-        private static string Generator1(string[] Ithem)
+        private static string ArmorGenerator1(string[] Ithem)
         {
             return $"{RandomElem(Ithem)} of {RandomElem(Adjective1)} {RandomElem(Noun)}";
         }
 
         // Generate like 'Material Chest of Adjective Noun'
-        private static string Generator2(string[] Ithem, string[] Material)
+        private static string ArmorGenerator2(string[] Ithem, string[] Material)
         {
             return $"{RandomElem(Material)} {RandomElem(Ithem)} of {RandomElem(Adjective1)} {RandomElem(Adjective2)}";
         }
 
         // Generate like '(Adjective) Material Chest'
-        private static string Generator3(string[] Ithem, string[] Material)
+        private static string ArmorGenerator3(string[] Ithem, string[] Material)
         {
             return $"{RandomElem(Adjective3)} {RandomElem(Material)} {RandomElem(Ithem)}";
         }
 
         // Generate like '(Adjective) Ithem of (the) Noun'
-        private static string Generator4(string[] Ithem)
+        private static string ArmorGenerator4(string[] Ithem)
         {
             return $"{RandomElem(Adjective3)} of {RandomElem(Ithem)} {RandomElem(Noun)}";
         }
 
         // Generate like 'Adjective/Verb/Preposition of (the) Noun'
-        private static string Generator5()
+        private static string ArmorGenerator5()
         {
             return $"{RandomElem(AdjectiveVerbPreposition)} of {RandomElem(Noun)}";
+        }
+
+        // Generate like 'Weapon'
+        private static string WeaponGenerator1()
+        {
+            return RandomElem(WeaponName);
+        }
+
+        // Generate like 'Adjective Weapon'
+        private static string WeaponGenerator2(string[] WeaponSpecName) 
+        {
+            return $"{RandomElem(Adjective4)} {RandomElem(WeaponSpecName)}";
+        }
+
+        // Generate like 'Adjective Material Weapon'
+        private static string WeaponGenerator3(string[] WeaponSpecName)
+        {
+            return $"{RandomElem(Adjective4)} {RandomElem(WeaponMaterial)} {RandomElem(WeaponSpecName)}";
+        }
+
+        // Generate like 'Adjective, Weapon (of) Noun'
+        private static string WeaponGenerator4(string[] WeaponSpecName)
+        {
+            return $"{RandomElem(WeaponName2)}, {RandomElem(WeaponSpecName)} {RandomElem(WeaponNoun)}";
         }
     }
 }
