@@ -48,9 +48,9 @@ namespace ConsoleRPG.Utils
             return nm5[nameIndex1] + nm6[nameIndex2];
         }
 
-        public static string GenerateIthemName(IthemType type, IthemRank rank)
+        public static string GenerateItemName(IthemType type, IthemRank rank)
         {
-            /* This function return random name of Ithem by type */
+            /* This function return random name of Item by type */
             switch (type)
             {
                 case IthemType.Helmet:

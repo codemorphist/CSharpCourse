@@ -189,7 +189,7 @@ namespace ConsoleRPG.Utils
             "yi", "ynchos", "ythrus", "yurus"
         };
 
-        // Dictionary for random Ithems names
+        // Dictionary for random Items names
         public static readonly string[] Adjective1 = {
             "Ancient", "Binding", "Blessed", "Blind", "Broken", "Burning", "Condemned", "Conquered", "Cursed", "Damned", "Dark",
             "Demonic", "Distant", "Divine", "Doomed", "Ending", "Endless", "Eternal", "Faded", "Fallen", "Fleeting", "Frozen",

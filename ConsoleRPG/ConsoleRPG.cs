@@ -75,7 +75,7 @@ namespace ConsoleRPG
 
             while (true)
             {
-                Console.WriteLine(GenerateIthemName(IthemType.Helmet, IthemRank.Heavy));
+                Console.WriteLine(GenerateItemName(IthemType.Helmet, IthemRank.Heavy));
                 Console.ReadLine();
             }
             
