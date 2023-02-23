@@ -5,29 +5,15 @@ using ConsoleRPG.Creatures.NPC;
 
 using static ConsoleRPG.Utils.InputOutput;
 using static ConsoleRPG.Utils.Generator;
+using static ConsoleRPG.Utils.Resources;
+using System.Runtime.InteropServices;
+using ConsoleRPG.Creature;
+using ConsoleRPG.Items;
 
 namespace ConsoleRPG.Utils
 {
     static class GameGraphics
     {
-        public static void DrawMainScreen()
-        {
-            string[] banner = 
-            {
-                "   _,.----.     _,.---._    .-._          ,-,--.    _,.---._                  ,----.                  _ __        _,---.   ",
-                " .' .' -   \\  ,-.' , -  `. /==/ \\  .-._ ,-.'-  _\\ ,-.' , -  `.    _.-.     ,-.--` , \\  .-.,.---.   .-`.' ,`.  _.='.'-,  \\  ",
-                "/==/  ,  ,-' /==/_,  ,  - \\|==|, \\/ /, /==/_ ,_.'/==/_,  ,  - \\ .-,.'|    |==|-  _.-` /==/  `   \\ /==/, -   \\/==.'-     /  ",
-                "|==|-   |  .|==|   .=.     |==|-  \\|  |\\==\\  \\  |==|   .=.     |==|, |    |==|   `.-.|==|-, .=., |==| _ .=. /==/ -   .-'   ",
-                "|==|_   `-' \\==|_ : ;=:  - |==| ,  | -| \\==\\ -\\ |==|_ : ;=:  - |==|- |   /==/_ ,    /|==|   '='  /==| , '=',|==|_   /_,-.  ",
-                "|==|   _  , |==| , '='     |==| -   _ | _\\==\\ ,\\|==| , '='     |==|, |   |==|    .-' |==|- ,   .'|==|-  '..'|==|  , \\_.' ) ",
-                "\\==\\.       /\\==\\ -    ,_ /|==|  /\\ , |/==/\\/ _ |\\==\\ -    ,_ /|==|- `-._|==|_  ,`-._|==|_  . ,'.|==|,  |   \\==\\-  ,    (  ",
-                " `-.`.___.-'  '.='. -   .' /==/, | |- |\\==\\ - , / '.='. -   .' /==/ - , ,/==/ ,     //==/  /\\ ,  )==/ - |    /==/ _  ,  /  ",
-                "                `--`--''   `--`./  `--` `--`---'    `--`--''   `--`-----'`--`-----`` `--`-`--`--'`--`---'    `--`------'   "
-            };
-
-            PrintArray(banner, AlignPrint.Center, AlignPrint.Center);
-        }
-
         public static void DrawHitLine(int len)
         {
             string hitline = "[";
@@ -57,20 +43,23 @@ namespace ConsoleRPG.Utils
             PrintByCords("Натисніть [Space] щоб завдати удару!", (Console.WindowWidth - 36) / 2, Console.WindowHeight / 2 - 2);
             PrintByCords("0", (Console.WindowWidth - 50) / 2 - 1, Console.WindowHeight / 2 + 1);
             PrintByCords($"{strength}", Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 1);
-            PrintByCords("0", (Console.WindowWidth - 50) / 2 + 50, Console.WindowHeight / 2  + 1);
+            PrintByCords("0", (Console.WindowWidth - 50) / 2 + 50, Console.WindowHeight / 2 + 1);
         }
 
-        private static void ShowHealth(int health, int max_health)
+        private static ConsoleColor GetColor(int value, int max_value)
+        {
+            double value_percent = (double)value / (double)max_value;
+            if (value_percent <= 0.25)
+                return ConsoleColor.Red;
+            else if (value_percent < 0.5)
+                return ConsoleColor.DarkYellow;
+            else
+                return ConsoleColor.Green;
+        }
+
+        private static string ShowHealth(int health, int max_health)
         {
             double health_percent = (double)health / (double)max_health;
-
-            ConsoleColor color;
-            if (health_percent <= 0.25)
-                color = ConsoleColor.Red;
-            else if (health_percent < 0.5)
-                color = ConsoleColor.DarkYellow;
-            else
-                color = ConsoleColor.Green;
 
             string health_bar = "";
             int size = 12;
@@ -84,29 +73,51 @@ namespace ConsoleRPG.Utils
             }
             health_bar += "]";
 
-            PrintLine(health_bar, AlignPrint.Left, color);
-            PrintLine($"{health} / {max_health}", AlignPrint.Left, color);
+            return health_bar;
+        }
+
+        private static void ShowArmor(Armor[] armors, int x, int y, int space)
+        {
+            if (armors == null) 
+                return;
+
+            if (armors[0] != null)
+                PrintByCords("[H]", x, y,   GetColor(armors[0].ArmorPoints, armors[0].MaxArmorPoints));
+            if (armors[1] != null)
+                PrintByCords("[C]", x, y+space, GetColor(armors[1].ArmorPoints, armors[1].MaxArmorPoints));
+            if (armors[2] != null)
+                PrintByCords("[L]", x, y+2*space, GetColor(armors[2].ArmorPoints, armors[2].MaxArmorPoints));
+            if (armors[3] != null)
+                PrintByCords("[B]", x, y+3*space, GetColor(armors[3].ArmorPoints, armors[3].MaxArmorPoints));
+        }
+
+        private static void ShowWeapon(Weapon weapon, int x, int y)
+        {
+            if (weapon != null)
+                PrintByCords($"{weapon.GetType().ToString().Split('.')[2]} [{weapon.Damage}]", x, y);
         }
 
         public static void ShowMonsterInfo(Monster monster)
         {
-            PrintLine($"\n{monster.GetName()} [{monster.GetLevel()} Lv]", AlignPrint.Left);
-            ShowHealth(monster.GetHealth(), monster.GetMaxHealth());
-            PrintLine($"[Armor] : {monster.GetArmor()}", AlignPrint.Left);
-            PrintLine($"[Strength] : {monster.GetStrength()}", AlignPrint.Left);
-            PrintLine($"[Energy] : {monster.GetEnergy()}", AlignPrint.Left);
-            PrintLine($"[Experience Points] : {monster.GetExperiencePoints()}", AlignPrint.Left);
+            Console.SetCursorPosition(0, 6);
+            Print($"{monster.Name} [{monster.Level} Lv]\n", AlignPrint.Center);
+            Print($"{ShowHealth(monster.Health, monster.MaxHealth)}", AlignPrint.Center, GetColor(monster.Health, monster.MaxHealth));
+            PrintArt(dragon, (Console.WindowWidth - MaxLenInStringArray(dragon)) / 2, 9);
+            ShowArmor(monster.Armors, (Console.WindowWidth + MaxLenInStringArray(dragon)) / 2 + 5, 9, (int)(dragon.Length / 4));
         }
 
         public static void ShowPlayerInfo(Player player)
         {
-            PrintLine($"\n{player.GetName()} [{player.GetLevel()} Lv]", AlignPrint.Left);
-            ShowHealth(player.GetHealth(), player.GetMaxHealth());
-            PrintLine($"[Strength] : {player.GetStrength()}", AlignPrint.Left);
-            PrintLine($"[Agility] : {player.GetAgility()}", AlignPrint.Left);
-            PrintLine($"[Endurance] : {player.GetEndurance()}", AlignPrint.Left);
-            PrintLine($"[Energy] : {player.GetEnergy()}", AlignPrint.Left);
-            PrintLine($"[Experience Points] : {player.GetExperiencePoints()}", AlignPrint.Left);
+            Console.SetCursorPosition(0,0);
+            Print($"{player.Name} [{player.Level} Lv]", AlignPrint.Left);
+            Print($"\n{ShowHealth(player.Health, player.MaxHealth)}", AlignPrint.Left, GetColor(player.Health, player.MaxHealth));
+            Print($"\n[STR] {player.Strength}", AlignPrint.Left);
+            Print($"\n[ENR] {player.Energy}", AlignPrint.Left);
+            Print($"\n[AGL] {player.Agility}", AlignPrint.Left);
+            Print($"\n[END] {player.Endurance}", AlignPrint.Left);
+            Print($"\n[EXP] {player.ExperiencePoints}", AlignPrint.Left);
+            ShowArmor(player.Armors, player.Name.Length + 12, 0, 2);
+            ShowWeapon(player.Weapons, 0, 8);
         }
 
         public static void DeadScreen()

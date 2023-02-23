@@ -12,6 +12,7 @@ using static ConsoleRPG.Utils.Animation;
 using static ConsoleRPG.Utils.Resources;
 using static ConsoleRPG.Utils.Generator;
 using ConsoleRPG.Utils;
+using ConsoleRPG.Creature;
 
 namespace ConsoleRPG
 {
@@ -24,7 +25,7 @@ namespace ConsoleRPG
             Print("Введіть ім'я персонажу: ", AlignPrint.Left);
             string name = InputValue();
 
-            PrintMenu(new string[] { "[1] Варвар", "[2] Танк", "[3] Бандит" }, AlignPrint.Left);
+            PrintArray(new string[] { "[1] Варвар", "[2] Танк", "[3] Бандит" });
             Print("Виберіть тип: ", AlignPrint.Left);
             int type = InputInt();
 
@@ -58,10 +59,26 @@ namespace ConsoleRPG
             DeadScreen();
         }
 
+        private static void TestPlyaerInfo()
+        {
+            Player player = new Barbarian("Test");
+            player.PutAwayArmor(ArmorType.Chest, new Armor("dahso", 1, 32));
+            player.PutAwayArmor(ArmorType.Leggins, new Armor("fdas", 1, 32));
+            Monster monster = new Monster("TestMonster", 1,1,1,1,11,1);
+            monster.PutAwayArmor(ArmorType.Helmet, new Armor("Armor",1,5));
+            monster.PutAwayArmor(ArmorType.Boots, new Armor("Armodfar", 1, 5));
+            monster.PutAwayArmor(ArmorType.Chest, new Armor("dajksj", 3, 7));
+            ShowPlayerInfo(player);
+            ShowMonsterInfo(monster);
+
+
+            Console.ReadKey();
+        }
+
         private static void MainScreen()
         {
             //DrawMainScreen();
-            PrintMenu(new string[] { "[S] Start Game", "[E] Exit" }, AlignPrint.Center);
+            PrintArray(new string[] { "[S] Start Game", "[E] Exit" });
 
             switch (Console.ReadKey().Key)
             {
@@ -81,16 +98,7 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine($"Sword: {GenerateWeaponName(IthemType.Sword)}");
-                Console.WriteLine($"Hummer: {GenerateWeaponName(IthemType.Hummer)}");
-                Console.WriteLine($"Axe: {GenerateWeaponName(IthemType.Axe)}");
-                Console.WriteLine($"Spear: {GenerateWeaponName(IthemType.Spear)}");
-
-                Console.ReadKey();
-            }
+            PlayGame();
         }
     }
 }

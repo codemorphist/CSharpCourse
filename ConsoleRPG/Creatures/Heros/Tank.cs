@@ -4,7 +4,7 @@
     {
         public Tank(string name) : base(name)
         {
-            SetEndurance(150);
+            Endurance = 150;
         }
     }
 }

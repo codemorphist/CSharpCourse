@@ -8,6 +8,8 @@ using ConsoleRPG.Creatures.NPC;
 using static ConsoleRPG.Utils.Generator;
 using static ConsoleRPG.Utils.GameGraphics;
 using static ConsoleRPG.Utils.InputOutput;
+using ConsoleRPG.Creature;
+using ConsoleRPG.Items;
 
 namespace ConsoleRPG.Engine
 {
@@ -19,22 +21,20 @@ namespace ConsoleRPG.Engine
         {
             /* This function generate Monster by Player characteristics */
             string name = GenerateName();
-            int level = RandomNumber(GamePlayer.GetLevel(), GamePlayer.GetLevel() + 2);
-            int health = RandomNumber(GamePlayer.GetHealth() - 100, GamePlayer.GetHealth());
+            int level = RandomNumber(GamePlayer.Level, GamePlayer.Level + 2);
+            int health = RandomNumber(GamePlayer.Health - 100, GamePlayer.Health);
             int max_health = RandomNumber(health, health + 100);
             int armor = RandomNumber(100, 500);
-            int max_armor = RandomNumber(armor, armor + 100);
             int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(GamePlayer.GetStrength() - 300, GamePlayer.GetStrength() - 200);
+            int strength = RandomNumber(GamePlayer.Strength - 10, GamePlayer.Strength + 10);
             int expireance_points = RandomNumber(10, 200);
 
-            return new Monster(name, level, health, max_health,
-                                armor, max_armor, strength, energy, expireance_points);
+            return new Monster(name, level, health, max_health, strength, energy, expireance_points);
         }
 
         public void CreatePlayer(string name, int type)
         {
-            /* This function return Player with some type and name */ 
+            /* This function create Player with some type and name */ 
             switch (type) 
             {
                 case 1:
@@ -52,7 +52,7 @@ namespace ConsoleRPG.Engine
             }
         }
 
-        private int PlayerHit(int strength)
+        private int PlayerHit()
         {
             Console.Clear();
 
@@ -69,7 +69,7 @@ namespace ConsoleRPG.Engine
 
             int pause = 10;
 
-            DrawHitBar(strength);
+            DrawHitBar(100);
 
             while (!exit)
             {
@@ -87,52 +87,66 @@ namespace ConsoleRPG.Engine
                 hit = 50 - hit;
 
             Console.Clear();
-            return (int) (strength * ((double) hit / 25));
+            return hit * 2;
         }
 
-        private void DamageMonster(Monster monster)
+        private BodyPart ChoseBodyPart()
         {
-            if (GamePlayer.GetWeapon() != null)
+            Console.SetCursorPosition(0, Console.WindowHeight - 5);
+            Print("Натисніть відповідну клавішу що вдарити монстра по відповідній частині тіла\n",AlignPrint.Center);
+            Print("[H] Head\t[B] Body\t[L] Legs\t[F] Feet\n", AlignPrint.Center);
+            switch (Console.ReadKey().Key)
             {
-                GamePlayer.GetWeapon().UseWeapon(GamePlayer, monster);
+                case ConsoleKey.H:
+                    return BodyPart.Head;
+                case ConsoleKey.B:
+                    return BodyPart.Body;
+                case ConsoleKey.L:
+                    return BodyPart.Legs;
+                case ConsoleKey.F:
+                    return BodyPart.Feet;
+                default:
+                    return BodyPart.Body;
             }
-        }
-
-        private void DamagePlayer(Monster monster)
-        {   
         }
 
         public int Battle(Monster monster)
         {
+            Console.Clear();
+
             int player_hit;
             int monster_hit;
-
-            Console.Clear();
+            int random;
+            BodyPart part;
 
             ShowPlayerInfo(GamePlayer);
             ShowMonsterInfo(monster);
 
-            Print("Натисніть будь-яку клавішу щоб почати бій...", AlignPrint.Center);
+            PrintByCords("Натисніть будь-яку клавішу щоб продовжити...", (Console.WindowWidth - 40) / 2, Console.WindowHeight - 1);
             Console.ReadKey();
 
-            while (GamePlayer.GetHealth() != 0 && monster.GetHealth() != 0)
-            {
-                Console.Clear();
-
-                DamageMonster(monster);
-                DamagePlayer(monster);
-
-                Print($"\n[INFO] Монстр вдарив вас з силою ({0})\n", color: ConsoleColor.Red);
+            while (GamePlayer.Health != 0 && monster.Health != 0)
+            {   
                 ShowPlayerInfo(GamePlayer);
-
-                Print($"\n\n[INFO] Ви завдали монстру удару з силою ({0})\n", color: ConsoleColor.Cyan);
                 ShowMonsterInfo(monster);
 
-                Print("Натисніть будь-яку клавішу щоб продовжити...", AlignPrint.Center);
+                part = ChoseBodyPart();
+                random = PlayerHit();
+                player_hit = GamePlayer.HitMonster(monster, part, random);
+                monster_hit = monster.HitPlayer(GamePlayer, (BodyPart)RandomNumber(0, 3));
+
+                ShowPlayerInfo(GamePlayer);
+                ShowMonsterInfo(monster);
+                PrintByCords($"-{player_hit}", Console.WindowWidth * 2/3, 6, ConsoleColor.Cyan);
+                PrintByCords($"-{monster_hit}", 15, 0, ConsoleColor.Red);
+
+                PrintByCords("Натисніть будь-яку клавішу щоб продовжити...", (Console.WindowWidth - 40) / 2, Console.WindowHeight-1);
                 Console.ReadKey();
+
+                Console.Clear();
             }
 
-            if (GamePlayer.GetHealth() == 0)
+            if (GamePlayer.Health == 0)
                 return 0;
             else
                 return 1;

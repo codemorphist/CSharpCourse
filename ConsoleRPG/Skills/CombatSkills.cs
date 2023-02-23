@@ -19,34 +19,4 @@ namespace ConsoleRPG.Skills
             SkillName = this.GetType().Name;
         }
     }
-
-    class ForceSprint : CombatSkill, ICombatSkill
-    {
-        public void UseSkill(Monster monster)
-        {
-            monster.SetHealth(monster.GetHealth() - 100);
-        }
-
-        public ForceSprint() : base() { }
-    }
-
-    class HyperHit : CombatSkill, ICombatSkill
-    {
-        public void UseSkill(Monster monster)
-        {
-            monster.SetHealth(monster.GetHealth() - 500);
-        }
-
-        public HyperHit() : base() { }
-    }
-
-    class HeavyHit : CombatSkill, ICombatSkill
-    {
-        public void UseSkill(Monster monster)
-        {
-            monster.SetHealth(monster.GetHealth() - 400);
-        }
-
-        public HeavyHit() : base() { }
-    }
 }

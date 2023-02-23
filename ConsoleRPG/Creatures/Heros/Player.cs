@@ -3,96 +3,73 @@ using System.Collections.Generic;
 
 using ConsoleRPG.Creature;
 using ConsoleRPG.Creatures.NPC;
-using ConsoleRPG.Items;
 using ConsoleRPG.Skills;
+
+using static ConsoleRPG.Utils.Generator;
 
 namespace ConsoleRPG.Creatures.Heros
 {
     class Player : BasePerson
     {
         // Initialization of characteristics
-        private int Agility;
-        private int Endurance;
+        public int Agility { get; protected set; }
+        public int Endurance { get; protected set; }
 
         // Initialization of skills
-        private List<ICombatSkill> Skills;
+        public List<ICombatSkill> Skills { get; protected set; }
 
-        // Skills functions
-        public List<ICombatSkill> GetSkills() => Skills; // This function return all skill
-        public ICombatSkill GetSkill(int index) => Skills[index]; // This function return specific skill
+        // Skill function
+        public void SetSkill(ICombatSkill skill) => Skills.Add(skill);
 
-        // Initialization of armor
-        // 1: Helmet
-        // 2: Chest
-        // 3: Leggins
-        // 4: Boots
-        private Armor[] Armors;
-
-        // Armor functions
-        public void PutAwayArmor(ArmorType type, Armor armor)
-        {
-            /* This function puts Armor on a specific part of the player's body */
-
-            try
-            {
-                if ((int) type > Armors.Length - 1)
-                    throw new Exception("Не можливо вдягнути броню на цю чатину тіла");
-
-                Armors[(int) type] = armor;
-            }
-            catch(Exception ex) 
-            {
-                Console.WriteLine($"[ERROR] {ex.Message}");
-            }
-        }
-
-        // This function return Armor from specific part of the player's body
-        public Armor GetArmor(ArmorType type) => Armors[(int) type];
-
-        // Initialization of weapon
-        private IWeapon PlayerWeapon;
-
-        // Weapon functions
-        public IWeapon GetWeapon() => PlayerWeapon;
-        public void SetWeapon(IWeapon weapon) => PlayerWeapon = weapon; 
-
-        // Set functions
+        // Set methods
         public void SetAgility(int value) => Agility = (value > 0) ? value : Agility;
         public void SetEndurance(int value) => Endurance = (value > 0) ? value : Endurance;
 
-        // Skills functions
+        // Skills methods
         public void AddSkill(ICombatSkill skill) => Skills.Add(skill);
         public void RemoveSkill(ICombatSkill skill) => Skills.Remove(skill);
         public void UseSkill(int skill, Monster monster) => Skills[skill].UseSkill(monster);
 
-        // Get functions
-        public int GetAgility() => Agility;
-        public int GetEndurance() => Endurance;
+        // Battle method
+        public int HitMonster(Monster monster, BodyPart part, int random)
+        {
+            int damage = Strength;
 
-        // Game functions
+            // Damage with Weapon
+            if (Weapons != null)
+                damage = (int)((Strength * 0.2 + Weapons.Damage) * random / 100);
+
+            // Critical hit chance
+            if (RandomNumber(0, 200) - 10 < Agility && Agility < RandomNumber(0, 200) + 10)
+                damage *= 2;
+
+            monster.GetDamage(damage, part);
+
+            return damage;
+        }
+
+        // Game methods
         public void LevelUp()
         {
-            SetLevel(GetLevel() + 1);
-            SetStrength((int) (GetStrength() * 1.5));
-            SetHealth(400 * GetLevel());
-            SetMaxHealth(GetHealth());
+            SetLevel(Level + 1);
+            SetStrength((int) (Strength * 1.5));
+            SetHealth(400 * Level);
+            SetMaxHealth(Health);
         }
 
         // Player Class constructor
         public Player(string name) : base (name)
         {
-            SetLevel(1);
-            SetHealth(600);
-            SetMaxHealth(600);
-            SetEnergy(100);
-            SetMaxEnergy(100);
-            SetStrength(200);
-            SetAgility(100);
-            SetEndurance(100);
-            SetExperiencePoints(100);
+            Level = 1;
+            Health = 600;
+            MaxHealth = 600;
+            Energy = 100;
+            Strength = 200;
+            Agility = 80;
+            Endurance = 100;
+            ExperiencePoints = 100;
 
             Skills = new List<ICombatSkill>();
-            Armors = new Armor[4];
         }
     }
 }

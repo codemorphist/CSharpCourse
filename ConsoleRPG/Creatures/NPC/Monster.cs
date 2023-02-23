@@ -1,31 +1,35 @@
-﻿using ConsoleRPG.Creature;
+﻿using System;
+
+using ConsoleRPG.Creature;
+using ConsoleRPG.Creatures.Heros;
+using static ConsoleRPG.Utils.Generator;
 
 namespace ConsoleRPG.Creatures.NPC
 {
     internal class Monster : BasePerson
     {
-        // Initialization of characteristics
-        private int Armor, MaxArmor;
+        public int HitPlayer(Player player, BodyPart part)
+        {
+            int damage = Strength;
 
-        // Set functions
-        public void SetArmor(int value) => Armor = (value > 0) ? value : Armor;
-        public void SetMaxArmor(int value) => MaxArmor = (value > 0) ? value : MaxArmor;
+            // Weapon damage
+            if (Weapons != null)
+                damage = (int)((Strength * 0.2 + Weapons.Damage) * RandomNumber(0, 101) / 100);
 
-        // Get functions
-        public int GetArmor() => Armor;
+            player.GetDamage(damage, part);
+
+            return damage;
+        }
 
         // Monster Class constructor
-        public Monster(string name, int level, int health, int max_health,
-            int armor, int max_armor, int strength, int energy, int experience_points) : base (name)
+        public Monster(string name, int level, int health, int max_health, int strength, int energy, int experience_points) : base (name)
         {
-            SetLevel(level);
-            SetHealth(health);
-            SetMaxHealth(max_health);
-            SetArmor(armor);
-            SetMaxArmor(max_armor);
-            SetEnergy(energy);
-            SetStrength(strength);
-            SetExperiencePoints(experience_points);
+            Level = level;
+            Health = health;
+            MaxHealth = max_health;
+            Energy = energy;
+            Strength = strength;
+            ExperiencePoints = experience_points;
         }
     }
 }

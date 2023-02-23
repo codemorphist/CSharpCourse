@@ -441,7 +441,7 @@ namespace ConsoleRPG.Utils
             "Widow Maker", "Willbreaker", "Winterthorn", "Wit's End", "Witherbrand", "Wolf", "Worldbreaker", "Worldslayer"
         };
         public static readonly string[] WeaponName2 =
-{
+        {
             "Annihilation", "Betrayer", "Blade", "Blessed Blade", "Blood Blade", "Bond", "Boon",
             "Breaker", "Bringer", "Broadsword", "Butcher", "Call", "Carver", "Champion", "Claymore",
             "Conqueror", "Crusader", "Cry", "Cunning", "Dark Blade", "Dawn", "Defender", "Defiler",

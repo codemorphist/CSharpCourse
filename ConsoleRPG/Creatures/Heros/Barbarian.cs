@@ -6,9 +6,7 @@ namespace ConsoleRPG.Creatures.Heros
     {
         public Barbarian(string name) : base(name)
         {
-            SetStrength((int)(GetStrength() * 1.5));
-
-            SetWeapon(new Sword("Catastrophe", 1, 200));
+            Strength = (int)(Strength * 1.5);
         }
     }
 }

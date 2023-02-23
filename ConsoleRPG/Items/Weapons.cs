@@ -3,17 +3,11 @@ using ConsoleRPG.Creatures.NPC;
 
 namespace ConsoleRPG.Items
 {
-    // Interface for Weapons
-    interface IWeapon
-    {
-        // Use weapon on moster
-        void UseWeapon(Player player, Monster monster);
-    }
-    
+   
     // Weapon class
     abstract class Weapon : Item
     {
-        protected int Damage;
+        public int Damage { get; }
 
         public Weapon(string name, int level, int damage) : base(name, level)
         {
@@ -22,46 +16,26 @@ namespace ConsoleRPG.Items
     }
 
     // Sword class (Prioritet for Barbarian)
-    class Sword : Weapon, IWeapon
+    class Sword : Weapon
     {
         public Sword(string name, int level, int damage) : base(name, level, damage) { } 
-
-        public void UseWeapon(Player player, Monster monster)
-        {
-            monster.SetHealth(monster.GetHealth() - Damage);
-        }
     }
 
     // Hammer class (Prioritet for Tank)
-    class Hammer : Weapon, IWeapon
+    class Hammer : Weapon
     {
         public Hammer(string name, int level, int damage) : base(name, level, damage) { }
-
-        public void UseWeapon(Player player, Monster monster)
-        {
-           
-        }
     }
 
     // Axe class (Prioritet for Bandit)
-    class Axe : Weapon, IWeapon
+    class Axe : Weapon
     {
         public Axe(string name, int level, int damage) : base(name, level, damage) { }
-
-        public void UseWeapon(Player player, Monster monster)
-        {
-            
-        }
     }
 
     // Spears class (Universall for all)
-    class Spears : Weapon, IWeapon
+    class Spears : Weapon
     {
         public Spears(string name, int level, int damage) : base(name, level, damage) { }
-
-        public void UseWeapon(Player player, Monster monster)
-        {
-
-        }
     }
 }

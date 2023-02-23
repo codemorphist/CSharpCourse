@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography;
 using System.Threading;
 
 namespace ConsoleRPG.Utils
@@ -15,9 +17,28 @@ namespace ConsoleRPG.Utils
             return Convert.ToInt32(InputValue());
         }
 
+        public static double InputDouble() 
+        {
+            return Convert.ToDouble(InputValue());
+        }
+
         public static char InputChar()
         {
             return Convert.ToChar(InputValue());
+        }
+
+        
+        public static int MaxLenInStringArray(string[] array)
+        {
+            int max_len = array[0].Length;
+
+            foreach (string elem in array) 
+            {
+                if (elem.Length > max_len)
+                    max_len = elem.Length;
+            }
+
+            return max_len;
         }
 
         private static void PrintCenter(string text)
@@ -38,19 +59,6 @@ namespace ConsoleRPG.Utils
             Console.Write(text);
         }
 
-        public static int MaxLenInStringArray(string[] array)
-        {
-            int max = 0;
-
-            foreach (string elem in array)
-            {
-                if (elem.Length > max)
-                    max = elem.Length;
-            }
-
-            return max;
-        }
-
         public enum AlignPrint
         {
             Right,
@@ -61,9 +69,42 @@ namespace ConsoleRPG.Utils
             None
         }
 
+        public static void Print(int value,
+                                 AlignPrint align = AlignPrint.None,
+                                 ConsoleColor color = ConsoleColor.White,
+                                 ConsoleColor background = ConsoleColor.Black)
+        {
+            Print(value.ToString(), align, color, background);
+        }
 
-        public static void Print(string text, AlignPrint align = AlignPrint.None, 
-                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        public static void Print(double value,
+                                 AlignPrint align = AlignPrint.None,
+                                 ConsoleColor color = ConsoleColor.White,
+                                 ConsoleColor background = ConsoleColor.Black)
+        {
+            Print(value.ToString(), align, color, background);
+        }
+
+        public static void Print(bool value,
+                                 AlignPrint align = AlignPrint.None,
+                                 ConsoleColor color = ConsoleColor.White,
+                                 ConsoleColor background = ConsoleColor.Black)
+        {
+            Print(value.ToString(), align, color, background);
+        }
+
+        public static void Print(char value,
+                                 AlignPrint align = AlignPrint.None,
+                                 ConsoleColor color = ConsoleColor.White,
+                                 ConsoleColor background = ConsoleColor.Black)
+        {
+            Print(value.ToString(), align, color, background);
+        }
+
+        public static void Print(string text, 
+                                 AlignPrint align = AlignPrint.None, 
+                                 ConsoleColor color = ConsoleColor.White, 
+                                 ConsoleColor background = ConsoleColor.Black)
         {
             Console.ForegroundColor = color;
             Console.BackgroundColor = background;
@@ -87,61 +128,43 @@ namespace ConsoleRPG.Utils
             Console.ResetColor();
         }
 
-        public static void PrintLine(string text, AlignPrint align = AlignPrint.None,
-                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        public static void PrintByCords(string text, int x, int y,
+                                        ConsoleColor color = ConsoleColor.White, 
+                                        ConsoleColor background = ConsoleColor.Black)
         {
-            Print(text, align, color, background);
-            Console.CursorTop += 1;
+            if (x > Console.WindowWidth || x < 0 || y > Console.WindowHeight || y < 0)
+                return;
+
+            Console.SetCursorPosition(x, y);
+            Print(text, color: color, background: background);
         }
 
-        public static void PrintByCords(string text, int left, int top,
-                                 ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
-        {
-            left = (left > Console.WindowWidth) ? Console.WindowWidth - text.Length : left;
-            top = (top > Console.WindowHeight) ? Console.WindowHeight - 1 : top;
-
-            Console.SetCursorPosition(left, top);
-            Print(text, AlignPrint.None, color, background);
-        }
-
-        public static void PrintMenu(string[] menu, AlignPrint align = AlignPrint.None,
-                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
-        {
-            foreach (string elem in menu)
-            {
-                PrintLine(elem, align, color, background);
-            }
-        }
-
-        public static void PrintArray(string[] array, AlignPrint x_align = AlignPrint.None, AlignPrint y_align = AlignPrint.None,
-                                    ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
-        {
-            switch(y_align)
-            {
-                case AlignPrint.Top:
-                    Console.SetCursorPosition(Console.CursorLeft, 0);
-                    break;
-                case AlignPrint.Center:
-                    Console.SetCursorPosition(Console.CursorLeft, (Console.WindowHeight - array.Length) / 2);
-                    break;
-                case AlignPrint.Bottom:
-                    Console.SetCursorPosition(Console.CursorLeft, Console.WindowHeight);
-                    break;
-            }
-
-            for (int i = 0; i < array.Length; i++)
-            {
-
-                PrintLine(array[i], x_align, color, background);
-            }
-        }
-
-        public static void PrintArrayByCords(string[] array, int left, int top,
-                          ConsoleColor color = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
+        public static void PrintArt(string[] array, int x, int y)
         {
             for (int i = 0; i < array.Length; i++)
             {
-                PrintByCords(array[i], left, top + i, color, background);
+                Console.SetCursorPosition(x, y+i);
+                Print(array[i]);
+            }
+        }
+
+        public static void PrintArray(string[] array)
+        {
+            int x = Console.CursorLeft;
+            foreach (string elem in array)
+            {
+                Print(elem);
+                Console.CursorTop++;
+                Console.CursorLeft = x;
+            }
+        }
+
+        public static void PrintArrayByCords(string[] array, int x, int y)
+        {
+            foreach (string elem in array)
+            {
+                PrintByCords(elem, x, y);
+                y += 1;
             }
         }
 

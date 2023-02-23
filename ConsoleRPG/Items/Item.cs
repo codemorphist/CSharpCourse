@@ -24,8 +24,8 @@
     class Item
     {
         // Initialization of variables 
-        protected string Name;
-        protected int Level;
+        public string Name { get; }
+        public int Level { get; }
 
         // Constructor of Ithems
         public Item(string name, int level)

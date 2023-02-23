@@ -4,7 +4,7 @@
     {
         public Bandit(string name) : base (name)
         {
-            SetAgility(150);
+            Agility = 150;
         }
     }
 }

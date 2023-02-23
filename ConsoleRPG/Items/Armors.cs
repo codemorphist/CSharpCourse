@@ -10,17 +10,16 @@
 
     class Armor : Item
     {
-        protected int ArmorPoints;
+        public int ArmorPoints { get; private set; }
+        public int MaxArmorPoints { get; }
 
         // Set functions
-        public void SetArmor(int armor) => ArmorPoints = armor >= 0 ? armor : ArmorPoints;
-
-        // Get functions
-        public int GetArmor(int armor) => ArmorPoints;
+        public void SetArmorPoints(int armor) => ArmorPoints = (armor >= 0) ? armor : 0;
 
         public Armor(string name, int level, int armor_points) : base(name, level) 
         {
             ArmorPoints = armor_points;
+            MaxArmorPoints = armor_points;
         }
     }
 }
