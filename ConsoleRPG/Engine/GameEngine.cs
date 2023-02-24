@@ -8,6 +8,8 @@ using ConsoleRPG.Creatures.NPC;
 using static ConsoleRPG.Utils.Generator;
 using static ConsoleRPG.Utils.GameGraphics;
 using static ConsoleRPG.Utils.InputOutput;
+using static ConsoleRPG.Utils.Resources;
+
 using ConsoleRPG.Creature;
 using ConsoleRPG.Items;
 
@@ -99,7 +101,6 @@ namespace ConsoleRPG.Engine
                     return null;
             }
 
-
         }
 
         private int PlayerHit()
@@ -190,7 +191,7 @@ namespace ConsoleRPG.Engine
                 // Info After attack
                 ShowPlayerInfo(GamePlayer);
                 ShowMonsterInfo(monster);
-                PrintByCords($"-{player_hit}", Console.WindowWidth * 2/3 + 5, 6, ConsoleColor.Cyan);
+                PrintByCords($"-{player_hit}", Console.WindowWidth * 2/3 + 3, (Console.WindowHeight - 2 - dragon.Length) / 2, ConsoleColor.Cyan);
                 PrintByCords($"-{monster_hit}", GamePlayer.Name.Length + 20, 0, ConsoleColor.Red);
 
                 PrintByCords("Натисніть будь-яку клавішу щоб продовжити...", (Console.WindowWidth - 40) / 2, Console.WindowHeight-1);
