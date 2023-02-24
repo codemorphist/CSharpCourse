@@ -1,9 +1,0 @@
-﻿1 Add start banner and menu
-2 Change Design with ASCII-art and animations (last)
-3 Add classes Armor and Weapon 
-4 Add skill to all player types
-	1 Barbarian: 
-	2 Bandit: 
-	3 Tank:
-5 Update battle mechanics
-6 Add critical chance by Agility value

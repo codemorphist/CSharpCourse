@@ -64,7 +64,7 @@ namespace ConsoleRPG.Creatures.Heros
             Health = 600;
             MaxHealth = 600;
             Energy = 100;
-            Strength = 200;
+            Strength = 50;
             Agility = 80;
             Endurance = 100;
             ExperiencePoints = 100;

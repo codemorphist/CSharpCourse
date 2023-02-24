@@ -11,6 +11,7 @@ using static ConsoleRPG.Utils.InputOutput;
 using ConsoleRPG.Creature;
 using ConsoleRPG.Items;
 
+
 namespace ConsoleRPG.Engine
 {
     internal class GameEngine
@@ -24,12 +25,22 @@ namespace ConsoleRPG.Engine
             int level = RandomNumber(GamePlayer.Level, GamePlayer.Level + 2);
             int health = RandomNumber(GamePlayer.Health - 100, GamePlayer.Health);
             int max_health = RandomNumber(health, health + 100);
-            int armor = RandomNumber(100, 500);
             int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(GamePlayer.Strength - 10, GamePlayer.Strength + 10);
+            int strength = RandomNumber(GamePlayer.Strength - 20, GamePlayer.Strength - 10);
             int expireance_points = RandomNumber(10, 200);
 
-            return new Monster(name, level, health, max_health, strength, energy, expireance_points);
+            Monster monster = new Monster(name, level, health, max_health, strength, energy, expireance_points);
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (RandomNumber(0, 3) == 1)
+                    monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, (IthemType)(i+4)));
+            }
+
+            if (RandomNumber(0, 4) == 4)
+                monster.SetWeapon(GetRandomWeapon(level, RandomNumber(1,5)));
+
+                return monster;
         }
 
         public void CreatePlayer(string name, int type)
@@ -50,6 +61,45 @@ namespace ConsoleRPG.Engine
                     GamePlayer = null;
                     break;
             }
+
+            for (int i = 0; i < 4; i++)
+            {
+                GamePlayer.PutAwayArmor((ArmorType)i, GetRandomArmor(GamePlayer.Level, (IthemType)(i + 3)));
+            }
+
+            GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, RandomNumber(1, 5)));
+        }
+
+        private Armor GetRandomArmor(int creature_level, IthemType type)
+        {
+            string name = GenerateArmorName(type, (IthemRank) RandomNumber(0,2));
+            int level = RandomNumber(creature_level, creature_level+2);
+            int armor_points = RandomNumber(level*50, level*60);
+
+            return new Armor(name, level, armor_points);
+        }
+
+        private Weapon GetRandomWeapon(int creature_level, int weapon_type)
+        {
+            string name = GenerateWeaponName((IthemType)weapon_type);
+            int level = RandomNumber(creature_level, creature_level + 2);
+            int damage = RandomNumber(level * 70, level * 80);
+
+            switch (weapon_type)
+            {
+                case 1:
+                    return new Sword(name, level, damage);
+                case 2:
+                    return new Hammer(name, level, damage);
+                case 3:
+                    return new Axe(name, level, damage);
+                case 4:
+                    return new Spears(name, level, damage);
+                default:
+                    return null;
+            }
+
+
         }
 
         private int PlayerHit()
@@ -94,7 +144,8 @@ namespace ConsoleRPG.Engine
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 5);
             Print("Натисніть відповідну клавішу що вдарити монстра по відповідній частині тіла\n",AlignPrint.Center);
-            Print("[H] Head\t[B] Body\t[L] Legs\t[F] Feet\n", AlignPrint.Center);
+            Print("[H] Head    [B] Body    [L] Legs    [F] Feet\n", AlignPrint.Center);
+
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.H:
@@ -127,6 +178,7 @@ namespace ConsoleRPG.Engine
 
             while (GamePlayer.Health != 0 && monster.Health != 0)
             {   
+                // Info before attack
                 ShowPlayerInfo(GamePlayer);
                 ShowMonsterInfo(monster);
 
@@ -135,10 +187,11 @@ namespace ConsoleRPG.Engine
                 player_hit = GamePlayer.HitMonster(monster, part, random);
                 monster_hit = monster.HitPlayer(GamePlayer, (BodyPart)RandomNumber(0, 3));
 
+                // Info After attack
                 ShowPlayerInfo(GamePlayer);
                 ShowMonsterInfo(monster);
-                PrintByCords($"-{player_hit}", Console.WindowWidth * 2/3, 6, ConsoleColor.Cyan);
-                PrintByCords($"-{monster_hit}", 15, 0, ConsoleColor.Red);
+                PrintByCords($"-{player_hit}", Console.WindowWidth * 2/3 + 5, 6, ConsoleColor.Cyan);
+                PrintByCords($"-{monster_hit}", GamePlayer.Name.Length + 20, 0, ConsoleColor.Red);
 
                 PrintByCords("Натисніть будь-яку клавішу щоб продовжити...", (Console.WindowWidth - 40) / 2, Console.WindowHeight-1);
                 Console.ReadKey();
@@ -146,6 +199,7 @@ namespace ConsoleRPG.Engine
                 Console.Clear();
             }
 
+            // Return Battle result (0 - Lose, 1 - Win)
             if (GamePlayer.Health == 0)
                 return 0;
             else

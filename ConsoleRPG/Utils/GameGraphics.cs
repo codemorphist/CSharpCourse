@@ -14,6 +14,45 @@ namespace ConsoleRPG.Utils
 {
     static class GameGraphics
     {
+        public static void DrawGameBanner()
+        {
+            string[] banner =
+            {
+                "                                                                                  ,-.----.                ",
+                "  ,----..                                             ,--,             ,-.----.   \\    /  \\    ,----..    ",
+                " /   /   \\                                          ,--.'|             \\    /  \\  |   :    \\  /   /   \\   ",
+                "|   :     :  ,---.        ,---,              ,---.  |  | :             ;   :    \\ |   |  .\\ :|   :     :  ",
+                ".   |  ;. / '   ,'\\   ,-+-. /  | .--.--.    '   ,'\\ :  : '             |   | .\\ : .   :  |: |.   |  ;. /  ",
+                ".   ; /--` /   /   | ,--.'|'   |/  /    '  /   /   ||  ' |      ,---.  .   : |: | |   |   \\ :.   ; /--`   ",
+                ";   | ;   .   ; ,. :|   |  ,\" ' |  :  /`./ .   ; ,. :'  | |     /     \\ |   |  \\ : |   : .   /;   | ;  __  ",
+                "|   : |   '   | |: :|   | /  | |  :  ;_   '   | |: :|  | :    /    /  ||   : .  / ;   | |`-' |   : |.' .' ",
+                ".   | '___'   | .; :|   | |  | |\\  \\    `.'   | .; :'  : |__ .    ' / |;   | |  \\ |   | ;    .   | '_.' : ",
+                "'   ; : .'|   :    ||   | |  |/  `----.   \\   :    ||  | '.'|'   ;   /||   | ;\\  \\:   ' |    '   ; : \\  | ",
+                "'   | '/  :\\   \\  / |   | |--'  /  /`--'  /\\   \\  / ;  :    ;'   |  / |:   ' | \\.':   : :    '   | '/  .' ",
+                "|   :    /  `----'  |   |/     '--'.     /  `----'  |  ,   / |   :    |:   : :-'  |   | :    |   :    /   ",
+                " \\   \\ .'           '---'        `--'---'            ---`-'   \\   \\  / |   |.'    `---'.|     \\   \\ .'    ",
+                "  `---`                                                        `----'  `---'        `---`      `---`      "
+            };
+
+            PrintArrayByCords(banner, (Console.WindowWidth - MaxLenInStringArray(banner)) / 2, 5);
+        }
+
+        public static void DrawMenuBanner()
+        {
+            string[] banner = 
+            {
+                " _______  _______  __    _  _______  _______  ___      _______  ______    _______  _______ ",
+                "|       ||       ||  |  | ||       ||       ||   |    |       ||    _ |  |       ||       |",
+                "|       ||   _   ||   |_| ||  _____||   _   ||   |    |    ___||   | ||  |    _  ||    ___|",
+                "|       ||  | |  ||       || |_____ |  | |  ||   |    |   |___ |   |_||_ |   |_| ||   | __ ",
+                "|      _||  |_|  ||  _    ||_____  ||  |_|  ||   |___ |    ___||    __  ||    ___||   ||  |",
+                "|     |_ |       || | |   | _____| ||       ||       ||   |___ |   |  | ||   |    |   |_| |",
+                "|_______||_______||_|  |__||_______||_______||_______||_______||___|  |_||___|    |_______|"
+            };
+
+            PrintArrayByCords(banner, (Console.WindowWidth - MaxLenInStringArray(banner)) / 2, 3);
+        }
+
         public static void DrawHitLine(int len)
         {
             string hitline = "[";
@@ -94,16 +133,19 @@ namespace ConsoleRPG.Utils
         private static void ShowWeapon(Weapon weapon, int x, int y)
         {
             if (weapon != null)
-                PrintByCords($"{weapon.GetType().ToString().Split('.')[2]} [{weapon.Damage}]", x, y);
+                PrintByCords($"{weapon.Name} [{weapon.Damage}]", x, y);
         }
 
         public static void ShowMonsterInfo(Monster monster)
         {
-            Console.SetCursorPosition(0, 6);
+            int y = (Console.WindowHeight - 2 - dragon.Length) / 2;
+            Console.SetCursorPosition(0, y);
             Print($"{monster.Name} [{monster.Level} Lv]\n", AlignPrint.Center);
             Print($"{ShowHealth(monster.Health, monster.MaxHealth)}", AlignPrint.Center, GetColor(monster.Health, monster.MaxHealth));
-            PrintArt(dragon, (Console.WindowWidth - MaxLenInStringArray(dragon)) / 2, 9);
-            ShowArmor(monster.Armors, (Console.WindowWidth + MaxLenInStringArray(dragon)) / 2 + 5, 9, (int)(dragon.Length / 4));
+            PrintArt(dragon, (Console.WindowWidth - MaxLenInStringArray(dragon)) / 2, y+2);
+            ShowArmor(monster.Armors, (Console.WindowWidth + MaxLenInStringArray(dragon)) / 2 + 5, y+2, (int)(dragon.Length / 4));
+            if (monster.Weapons != null)
+                ShowWeapon(monster.Weapons, (Console.WindowWidth - monster.Weapons.Name.Length) / 2, y + 2 + dragon.Length);
         }
 
         public static void ShowPlayerInfo(Player player)

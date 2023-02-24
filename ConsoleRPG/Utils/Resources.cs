@@ -27,6 +27,25 @@
             }
         };
 
+        public static readonly string[][] cat_anim =
+{
+            new string[]
+            {
+                "  A  A",
+                "=|^w^|=   )",
+                " /    \\  (  ",
+                "( m  m ) /"
+            },
+
+            new string[]
+            {
+                "  A  A",
+                "=|^w^|=  ( ",
+                " /    \\   )",
+                "( m  m ) /"
+            }
+        };
+
         public static readonly string[] cat = 
         {
             "    ,     ,",

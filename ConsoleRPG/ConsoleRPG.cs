@@ -13,6 +13,8 @@ using static ConsoleRPG.Utils.Resources;
 using static ConsoleRPG.Utils.Generator;
 using ConsoleRPG.Utils;
 using ConsoleRPG.Creature;
+using System.Security.Cryptography;
+using System.Threading;
 
 namespace ConsoleRPG
 {
@@ -22,22 +24,20 @@ namespace ConsoleRPG
 
         private static void CreateNewPlayer()
         {
-            Print("Введіть ім'я персонажу: ", AlignPrint.Left);
+            PrintByCords("[Меню створення персонажа]", (Console.WindowWidth - 25) / 2, 0);
+
+            PrintByCords("Введіть ім'я персонажу: ", (Console.WindowWidth - 20) / 2, Console.WindowHeight / 2);
             string name = InputValue();
 
-            PrintArray(new string[] { "[1] Варвар", "[2] Танк", "[3] Бандит" });
-            Print("Виберіть тип: ", AlignPrint.Left);
+            Console.Clear();
+
+            PrintByCords("[Меню створення персонажа]", (Console.WindowWidth - 25) / 2, 0);
+
+            PrintArrayByCords(new string[] { "[1] Варвар", "[2] Танк", "[3] Бандит\n" }, (Console.WindowWidth - 10) / 2, (Console.WindowHeight - 3) / 2);
+            Print("Виберіть тип: ", AlignPrint.Center);
             int type = InputInt();
 
             Engine.CreatePlayer(name, type);
-        }
-
-        private static void AnimationTest()
-        {
-            Animation Phenix = new Animation(phenix_anim);
-            Phenix.DrawAnimation(120);
-
-            Console.ReadKey();
         }
 
         private static void PlayGame()
@@ -57,39 +57,43 @@ namespace ConsoleRPG
             }
 
             DeadScreen();
-        }
-
-        private static void TestPlyaerInfo()
-        {
-            Player player = new Barbarian("Test");
-            player.PutAwayArmor(ArmorType.Chest, new Armor("dahso", 1, 32));
-            player.PutAwayArmor(ArmorType.Leggins, new Armor("fdas", 1, 32));
-            Monster monster = new Monster("TestMonster", 1,1,1,1,11,1);
-            monster.PutAwayArmor(ArmorType.Helmet, new Armor("Armor",1,5));
-            monster.PutAwayArmor(ArmorType.Boots, new Armor("Armodfar", 1, 5));
-            monster.PutAwayArmor(ArmorType.Chest, new Armor("dajksj", 3, 7));
-            ShowPlayerInfo(player);
-            ShowMonsterInfo(monster);
-
-
             Console.ReadKey();
         }
 
-        private static void MainScreen()
+        private static int MainScreen()
         {
-            //DrawMainScreen();
-            PrintArray(new string[] { "[S] Start Game", "[E] Exit" });
+            Console.Clear();
+
+            DrawMenuBanner();
+
+            string[] menu = { "Натисніть відповідну клавішу:", "[S] Start Game", "[X] Exit" };
+            PrintArrayByCords(menu, (Console.WindowWidth - MaxLenInStringArray(menu)) / 2, (Console.WindowHeight - menu.Length) / 2);
 
             switch (Console.ReadKey().Key)
             {
-                case ConsoleKey.S:
-                    Console.Clear();
-                    PlayGame();
-                    break;
                 case ConsoleKey.E:
                     Console.Clear();
-                    return;
+                    return 1;
+                default:
+                    Console.Clear();
+                    PlayGame();
+                    return 0;
             }
+        }
+
+        private static void LoadingScreen()
+        {
+            DrawGameBanner();
+
+            PrintByCords("[", 1, Console.WindowHeight - 1);
+            PrintByCords("]", Console.WindowWidth - 1, Console.WindowHeight - 1);
+            for (int i = 0; i < Console.WindowWidth - 3; i++)
+            {
+                PrintByCords("#", i + 2, Console.WindowHeight - 1);
+                Thread.Sleep(30);
+            }
+
+            Console.Clear();
         }
 
         static void Main(string[] args)
@@ -98,7 +102,18 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            PlayGame();
+            PrintByCords("Для комфортної гри натисніть [F11], після [Space]", (Console.WindowWidth - 34) / 2, Console.WindowHeight / 2);
+            Console.ReadKey();
+
+            LoadingScreen();
+
+            int exit;
+            do
+            {
+                exit = MainScreen();
+            } while (exit != 1);
+
+            Console.Clear();
         }
     }
 }

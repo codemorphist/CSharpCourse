@@ -23,7 +23,7 @@ namespace ConsoleRPG.Utils
             return frame;
         }
 
-        public async void DrawAnimation(int delay = 100, int top = 0, int left = 0)
+        public async void DrawAnimation(int delay = 100, int x = 0, int y = 0)
         {
             await Task.Run(async () =>
             {
@@ -31,7 +31,7 @@ namespace ConsoleRPG.Utils
                 {
                     for (int i = 0; i < animation.Length; i++)
                     {
-                        PrintArrayByCords(GetFrame(i), top, left);
+                        PrintArrayByCords(GetFrame(i), x, y);
                         await Task.Delay(delay);
                     }
                 }

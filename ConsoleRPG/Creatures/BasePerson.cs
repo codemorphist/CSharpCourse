@@ -59,6 +59,7 @@ namespace ConsoleRPG.Creature
         public void GetDamage(int damage, BodyPart part)
         {
             Armor armor = Armors[(int)part];
+
             if (armor != null)
             {
                 armor.SetArmorPoints(armor.ArmorPoints - damage);
