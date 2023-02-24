@@ -71,7 +71,7 @@ namespace ConsoleRPG
 
             switch (Console.ReadKey().Key)
             {
-                case ConsoleKey.E:
+                case ConsoleKey.X:
                     Console.Clear();
                     return 1;
                 default:
