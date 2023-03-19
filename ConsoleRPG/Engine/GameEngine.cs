@@ -36,7 +36,7 @@ namespace ConsoleRPG.Engine
             for (int i = 1; i < 4; i++)
             {
                 if (RandomNumber(0, 3) == 1)
-                    monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, (IthemType)(i+4)));
+                    monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, i + 4));
             }
 
             if (RandomNumber(0, 4) == 4)
@@ -65,14 +65,14 @@ namespace ConsoleRPG.Engine
             }
 
             for (int i = 0; i < 4; i++)
-                GamePlayer.PutAwayArmor((ArmorType)i, GetRandomArmor(GamePlayer.Level, (IthemType)(i + 3)));
+                GamePlayer.PutAwayArmor((ArmorType)i, GetRandomArmor(GamePlayer.Level, i + 4));
 
             GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, RandomNumber(1, 4)));
         }
 
-        private Armor GetRandomArmor(int creature_level, IthemType type)
+        private Armor GetRandomArmor(int creature_level, int type)
         {
-            string name = GenerateArmorName(type, (IthemRank) RandomNumber(0,2));
+            string name = GenerateArmorName((IthemType)type, (IthemRank) RandomNumber(0,2));
             int level = RandomNumber(creature_level, creature_level+2);
             int armor_points = RandomNumber(level*50, level*60);
 
@@ -81,7 +81,7 @@ namespace ConsoleRPG.Engine
 
         private Weapon GetRandomWeapon(int creature_level, int weapon_type)
         {
-            string name = GenerateWeaponName((IthemType) weapon_type);
+            string name = GenerateWeaponName((IthemType) weapon_type-1);
             int level = RandomNumber(creature_level, creature_level + 2);
             int damage = RandomNumber(level * 70, level * 80);
 
@@ -102,18 +102,18 @@ namespace ConsoleRPG.Engine
 
         public string NewArmor()
         {
-            int type = RandomNumber(0,4);
-            Armor armor = GetRandomArmor(GamePlayer.Level, (IthemType)type);
+            int type = RandomNumber(4,7);
+            Armor armor = GetRandomArmor(GamePlayer.Level, type);
             GamePlayer.PutAwayArmor((ArmorType)type, armor);
             return $"You picked [{armor.Name}] [{armor.Level} Lv.]";
         }
 
         public string NewWeapon()
         {
-            int type = RandomNumber(1, 5);
+            int type = RandomNumber(1, 4);
             Weapon weapon = GetRandomWeapon(GamePlayer.Level, type);
             GamePlayer.SetWeapon(weapon);
-            return $"You picked [{weapon.Name}] [{weapon.Level} Lv.]";
+            return $"You picked [{weapon.Name}] [{weapon.Level} Lv.] [{weapon.Damage}]";
         }
 
         private int PlayerHit()

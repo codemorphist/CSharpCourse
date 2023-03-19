@@ -75,7 +75,7 @@ namespace ConsoleRPG
                                 if (Engine.Battle(monster) == 1)
                                 {
                                     WinScreen();
-                                    adventure.CurrentSymbol = ' ';
+                                    adventure.CurrentSymbol = 'D';
                                     Console.ReadKey();
                                     break;
                                 }
@@ -84,11 +84,14 @@ namespace ConsoleRPG
                                 return;
                             case 'A':
                                 info = Engine.NewArmor();
-                                adventure.CurrentSymbol = ' ';
+                                adventure.CurrentSymbol = 'o';
                                 break;
                             case 'W':
                                 info =  Engine.NewWeapon();
-                                adventure.CurrentSymbol = ' ';
+                                adventure.CurrentSymbol = 'o';
+                                break;
+                            default:
+                                info = "Nothing here..";
                                 break;
                         }
                         break;
