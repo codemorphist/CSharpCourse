@@ -64,8 +64,8 @@ namespace ConsoleRPG.Engine
 
             GenerateMap();
 
-            hero_x = RandomNumber(0, Width - 1);
-            hero_y = RandomNumber(0, Height - 1);
+            hero_x = RandomNumber(1, Width - 1);
+            hero_y = RandomNumber(1, Height - 1);
             CurrentSymbol = Field[hero_y, hero_x];
             Field[hero_y, hero_x] = Hero;
         }

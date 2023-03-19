@@ -196,19 +196,19 @@ namespace ConsoleRPG.Utils
                         switch (field[row, col])
                         {
                             case '@':
-                                DrawColoredSymbol(field[row, col], ConsoleColor.Cyan);
+                                DrawColoredSymbol('☻', ConsoleColor.Cyan);
                                 break;
                             case 'M':
-                                DrawColoredSymbol(field[row, col], ConsoleColor.Red);
+                                DrawColoredSymbol('M', ConsoleColor.Red);
                                 break;
                             case 'A':
-                                DrawColoredSymbol(field[row, col], ConsoleColor.Magenta);
+                                DrawColoredSymbol('A', ConsoleColor.Magenta);
                                 break;
                             case 'C':
                                 DrawColoredSymbol(field[row, col], ConsoleColor.DarkYellow);
                                 break;
                             case 'W':
-                                DrawColoredSymbol(field[row, col], ConsoleColor.DarkMagenta);
+                                DrawColoredSymbol('W', ConsoleColor.DarkMagenta);
                                 break;
                             case ',':
                                 DrawColoredSymbol(field[row, col], ConsoleColor.Green);

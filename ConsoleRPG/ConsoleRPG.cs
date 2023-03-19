@@ -51,6 +51,8 @@ namespace ConsoleRPG
 
             while (true)
             {
+                string info = "";
+
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.W:
@@ -81,11 +83,11 @@ namespace ConsoleRPG
                                 Console.ReadKey();
                                 return;
                             case 'A':
+                                info = Engine.NewArmor();
                                 adventure.CurrentSymbol = ' ';
-                                Engine.NewArmor();
                                 break;
                             case 'W':
-                                Engine.NewWeapon();
+                                info =  Engine.NewWeapon();
                                 adventure.CurrentSymbol = ' ';
                                 break;
                         }
@@ -93,7 +95,31 @@ namespace ConsoleRPG
                 }
 
                 PrintArray(adventure.Field, adventure.hero_x, adventure.hero_y);
-                Console.Write($"\rX: {adventure.hero_x} Y: {adventure.hero_y} ");
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write($"\rX: {adventure.hero_x} Y: {adventure.hero_y}\t");
+
+                if (info != "")
+                {
+                    Console.Write(info + ' ');
+                    continue;
+                }
+
+                switch (adventure.CurrentSymbol)
+                {
+                    case 'M':
+                        Console.Write("Monster is here... Press [E] to fight");
+                        break;
+                    case 'A':
+                        Console.Write("Press [E] to pick up Armor");
+                        break;
+                    case 'W':
+                        Console.Write("Press [E] to pick up Weapon");
+                        break;
+                    case 'C':
+                        Console.Write("Press [E] to open a Chest (in next release)");
+                        break;
+                }
+
             }
         }
 

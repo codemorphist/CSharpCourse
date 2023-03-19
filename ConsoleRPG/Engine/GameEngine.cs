@@ -33,7 +33,7 @@ namespace ConsoleRPG.Engine
 
             Monster monster = new Monster(name, level, health, max_health, strength, energy, expireance_points);
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 1; i < 4; i++)
             {
                 if (RandomNumber(0, 3) == 1)
                     monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, (IthemType)(i+4)));
@@ -100,17 +100,20 @@ namespace ConsoleRPG.Engine
             }
         }
 
-        public void NewArmor()
+        public string NewArmor()
         {
-            int type = RandomNumber(0,3);
-
-            GamePlayer.PutAwayArmor((ArmorType)type, GetRandomArmor(GamePlayer.Level, (IthemType) type));
+            int type = RandomNumber(0,4);
+            Armor armor = GetRandomArmor(GamePlayer.Level, (IthemType)type);
+            GamePlayer.PutAwayArmor((ArmorType)type, armor);
+            return $"You picked [{armor.Name}] [{armor.Level} Lv.]";
         }
 
-        public void NewWeapon()
+        public string NewWeapon()
         {
-            int type = RandomNumber(1, 4);
-            GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, type));
+            int type = RandomNumber(1, 5);
+            Weapon weapon = GetRandomWeapon(GamePlayer.Level, type);
+            GamePlayer.SetWeapon(weapon);
+            return $"You picked [{weapon.Name}] [{weapon.Level} Lv.]";
         }
 
         private int PlayerHit()
@@ -214,7 +217,10 @@ namespace ConsoleRPG.Engine
             if (GamePlayer.Health == 0)
                 return 0;
             else
+            {
+                GamePlayer.LevelUp();
                 return 1;
+            }
         }
     }
 }
