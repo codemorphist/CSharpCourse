@@ -25,7 +25,7 @@ namespace ConsoleRPG.Engine
             /* This function generate Monster by Player characteristics */
             string name = GenerateName();
             int level = RandomNumber(GamePlayer.Level, GamePlayer.Level + 2);
-            int health = RandomNumber(GamePlayer.Health - 100, GamePlayer.Health);
+            int health = RandomNumber(GamePlayer.MaxHealth - 100, GamePlayer.MaxHealth);
             int max_health = RandomNumber(health, health + 100);
             int energy = RandomNumber(200, 500);
             int strength = RandomNumber(GamePlayer.Strength - 20, GamePlayer.Strength - 10);
@@ -65,11 +65,9 @@ namespace ConsoleRPG.Engine
             }
 
             for (int i = 0; i < 4; i++)
-            {
                 GamePlayer.PutAwayArmor((ArmorType)i, GetRandomArmor(GamePlayer.Level, (IthemType)(i + 3)));
-            }
 
-            GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, RandomNumber(1, 5)));
+            GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, RandomNumber(1, 4)));
         }
 
         private Armor GetRandomArmor(int creature_level, IthemType type)
@@ -83,7 +81,7 @@ namespace ConsoleRPG.Engine
 
         private Weapon GetRandomWeapon(int creature_level, int weapon_type)
         {
-            string name = GenerateWeaponName((IthemType)weapon_type);
+            string name = GenerateWeaponName((IthemType) weapon_type);
             int level = RandomNumber(creature_level, creature_level + 2);
             int damage = RandomNumber(level * 70, level * 80);
 
@@ -100,7 +98,19 @@ namespace ConsoleRPG.Engine
                 default:
                     return null;
             }
+        }
 
+        public void NewArmor()
+        {
+            int type = RandomNumber(0,3);
+
+            GamePlayer.PutAwayArmor((ArmorType)type, GetRandomArmor(GamePlayer.Level, (IthemType) type));
+        }
+
+        public void NewWeapon()
+        {
+            int type = RandomNumber(1, 4);
+            GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, type));
         }
 
         private int PlayerHit()

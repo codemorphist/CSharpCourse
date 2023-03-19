@@ -47,6 +47,7 @@
     <Compile Include="Creatures\Heros\Bandit.cs" />
     <Compile Include="Creatures\Heros\Barbarian.cs" />
     <Compile Include="Creatures\Heros\Tank.cs" />
+    <Compile Include="Engine\Adventure.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Creatures\NPC\Monster.cs" />
     <Compile Include="Creatures\Heros\Player.cs" />

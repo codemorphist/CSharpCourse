@@ -46,18 +46,55 @@ namespace ConsoleRPG
 
             CreateNewPlayer();
 
-            Monster monster = Engine.GetMonster();
+            Adventure adventure = new Adventure(Console.WindowWidth, Console.WindowHeight - 1);
+            PrintArray(adventure.Field, adventure.hero_x, adventure.hero_y);
 
-            while (Engine.Battle(monster) == 1)
+            while (true)
             {
-                WinScreen();
-                Console.ReadKey();
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.W:
+                        adventure.MoveHero("Up");
+                        break;
+                    case ConsoleKey.S:
+                        adventure.MoveHero("Down");
+                        break;
+                    case ConsoleKey.D:
+                        adventure.MoveHero("Right");
+                        break;
+                    case ConsoleKey.A:
+                        adventure.MoveHero("Left");
+                        break;
+                    case ConsoleKey.E:
+                        switch (adventure.CurrentSymbol)
+                        {
+                            case 'M':
+                                Monster monster = Engine.GetMonster();
+                                if (Engine.Battle(monster) == 1)
+                                {
+                                    WinScreen();
+                                    adventure.CurrentSymbol = ' ';
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                DeadScreen();
+                                Console.ReadKey();
+                                return;
+                            case 'A':
+                                adventure.CurrentSymbol = ' ';
+                                Engine.NewArmor();
+                                break;
+                            case 'W':
+                                Engine.NewWeapon();
+                                adventure.CurrentSymbol = ' ';
+                                break;
+                        }
+                        break;
+                }
 
-                monster = Engine.GetMonster();
+                PrintArray(adventure.Field, adventure.hero_x, adventure.hero_y);
+                Console.Write($"\rX: {adventure.hero_x} Y: {adventure.hero_y} ");
             }
-
-            DeadScreen();
-            Console.ReadKey();
         }
 
         private static int MainScreen()
@@ -102,8 +139,7 @@ namespace ConsoleRPG
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            PrintByCords("Для комфортної гри натисніть [F11], після [Space]", (Console.WindowWidth - 34) / 2, Console.WindowHeight / 2);
-            Console.ReadKey();
+            Console.CursorVisible = false;
 
             LoadingScreen();
 

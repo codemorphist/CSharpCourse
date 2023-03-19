@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.CodeDom;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace ConsoleRPG.Utils
 {
@@ -165,6 +168,66 @@ namespace ConsoleRPG.Utils
             {
                 PrintByCords(elem, x, y);
                 y += 1;
+            }
+        }
+
+        public static double Distance(int x1, int y1, int x2, int y2)
+        {
+            return Math.Sqrt(Math.Pow(x2-x1, 2) + Math.Pow(y2-y1,2)*2.7);
+        }
+
+        private static void DrawColoredSymbol(char s, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(s);
+            Console.ResetColor();
+        }
+
+        public static void PrintArray(char[,] field, int x, int y)
+        {
+            Console.SetCursorPosition(0, 0);
+
+            for (int row = 0; row < field.GetLength(0); row++)
+            {
+                for (int col = 0; col < field.GetLength(1); col++)
+                {
+                    if (Distance(x, y, col, row) < 10)
+                    {
+                        switch (field[row, col])
+                        {
+                            case '@':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.Cyan);
+                                break;
+                            case 'M':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.Red);
+                                break;
+                            case 'A':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.Magenta);
+                                break;
+                            case 'C':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.DarkYellow);
+                                break;
+                            case 'W':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.DarkMagenta);
+                                break;
+                            case ',':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.Green);
+                                break;
+                            case '_':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.Blue);
+                                break;
+                            case '#':
+                                DrawColoredSymbol(field[row, col], ConsoleColor.White);
+                                break;
+                            default:
+                                DrawColoredSymbol(field[row, col], ConsoleColor.DarkGray);
+                                break;
+                        }
+                    }
+                    else
+                        Console.Write(' ');
+                }
+                Console.WriteLine();
             }
         }
 
