@@ -100,12 +100,29 @@ namespace ConsoleRPG.Engine
             }
         }
 
+        private char TypeChar(int type)
+        {
+            switch ((ArmorType)(type - 4)) 
+            {
+                case ArmorType.Helmet:
+                    return 'H';
+                case ArmorType.Chest:
+                    return 'C';
+                case ArmorType.Leggins:
+                    return 'L';
+                case ArmorType.Boots:
+                    return 'B';
+                default:
+                    return ' ';
+            }
+        }
+
         public string NewArmor()
         {
             int type = RandomNumber(4,7);
             Armor armor = GetRandomArmor(GamePlayer.Level, type);
-            GamePlayer.PutAwayArmor((ArmorType)type, armor);
-            return $"You picked [{armor.Name}] [{armor.Level} Lv.]";
+            GamePlayer.PutAwayArmor((ArmorType)(type-4), armor);
+            return $"You picked [{TypeChar(type)}] [{armor.Name}] [{armor.Level} Lv.]";
         }
 
         public string NewWeapon()

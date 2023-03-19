@@ -121,8 +121,10 @@ namespace ConsoleRPG
                     case 'C':
                         Console.Write("Press [E] to open a Chest (in next release)");
                         break;
+                    case 'P':
+                        Console.Write("Press [E] to drink Potion (in next release)");
+                        break;
                 }
-
             }
         }
 

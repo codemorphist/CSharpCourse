@@ -1,7 +1,4 @@
-﻿using ConsoleRPG.Creatures.Heros;
-using ConsoleRPG.Creatures.NPC;
-
-namespace ConsoleRPG.Items
+﻿namespace ConsoleRPG.Items
 {
    
     // Weapon class

@@ -15,7 +15,7 @@ namespace ConsoleRPG.Engine
 
         private void GenerateMap()
         {
-            string char_set = "MAWC^^^^^^^#####****______,,,,,,,,,,,,.....:::++++++===``~~~                            ";
+            string char_set = "MAWPC^^^^^^^#####****______,,,,,,,,,,,,.....:::++++++===``~~~                            ";
             for (int row = 0; row < Field.GetLength(0); row++)
             {
                 for (int col = 0; col < Field.GetLength(1); col++)
