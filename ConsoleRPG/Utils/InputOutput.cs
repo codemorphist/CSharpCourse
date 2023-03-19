@@ -208,7 +208,7 @@ namespace ConsoleRPG.Utils
                                 DrawColoredSymbol('W', ConsoleColor.DarkMagenta);
                                 break;
                             case 'P':
-                                DrawColoredSymbol('P', ConsoleColor.DarkGreen);
+                                DrawColoredSymbol('P', ConsoleColor.Magenta);
                                 break;
                             case 'C':
                                 DrawColoredSymbol('C', ConsoleColor.DarkYellow);
