@@ -1,6 +1,4 @@
-﻿using System;
-
-using ConsoleRPG.Creature;
+﻿using ConsoleRPG.Creature;
 using ConsoleRPG.Creatures.Heros;
 using static ConsoleRPG.Utils.Generator;
 
@@ -10,7 +8,7 @@ namespace ConsoleRPG.Creatures.NPC
     {
         public int HitPlayer(Player player, BodyPart part)
         {
-            int damage = Strength;
+            int damage = RandomNumber(Strength/2, Strength);
 
             // Weapon damage
             if (Weapons != null)

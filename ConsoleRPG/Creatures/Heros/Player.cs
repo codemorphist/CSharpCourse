@@ -37,7 +37,7 @@ namespace ConsoleRPG.Creatures.Heros
 
             // Damage with Weapon
             if (Weapons != null)
-                damage = (int)((Strength * 0.2 + Weapons.Damage) * random / 100);
+                damage = (int)((Strength * 0.3 + Weapons.Damage) * random / 100);
 
             // Critical hit chance
             if (RandomNumber(0, 200) - 10 < Agility && Agility < RandomNumber(0, 200) + 10)

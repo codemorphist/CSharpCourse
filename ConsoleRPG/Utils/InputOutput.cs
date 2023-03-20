@@ -187,10 +187,18 @@ namespace ConsoleRPG.Utils
         {
             Console.SetCursorPosition(0, 0);
 
+            int c_x, c_y;
+
             for (int row = 0; row < field.GetLength(0); row++)
             {
                 for (int col = 0; col < field.GetLength(1); col++)
-                {
+                { 
+                    if ((col < col - 10 && col > col + 10) || (row < row - 10 && row > row + 10))
+                    {
+                        Console.Write(' ');
+                        continue;
+                    }
+
                     if (Distance(x, y, col, row) < 10)
                     {
                         switch (field[row, col])
