@@ -193,9 +193,9 @@ namespace ConsoleRPG.Utils
             {
                 for (int col = 0; col < field.GetLength(1); col++)
                 { 
-                    if ((col < col - 10 && col > col + 10) || (row < row - 10 && row > row + 10))
+                    if (col < x - 10 || col > x + 10 || row < y - 6 || row > y + 6)
                     {
-                        Console.Write(' ');
+                        Console.Write(" ");
                         continue;
                     }
 
