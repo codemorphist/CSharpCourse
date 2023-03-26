@@ -9,3 +9,14 @@ D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.GenerateResource.cache
 D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.CoreCompileInputs.cache
 D:\Projects\HomeWork7\obj\Debug\HomeWork7.exe
 D:\Projects\HomeWork7\obj\Debug\HomeWork7.pdb
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\bin\Debug\HomeWork7.exe.config
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\bin\Debug\HomeWork7.exe
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\bin\Debug\HomeWork7.pdb
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.csproj.AssemblyReference.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.Form1.resources
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.Properties.Resources.resources
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.csproj.GenerateResource.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.exe
+C:\Users\Alex\source\repos\CSharpCourse\HomeWork7\obj\Debug\HomeWork7.pdb

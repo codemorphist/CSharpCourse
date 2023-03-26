@@ -10,8 +10,6 @@ namespace HomeWork7
         public Form1()
         {
             InitializeComponent();
-
-            UserBornDay = new DateTime();
         }
 
         private int Years(DateTime start, DateTime end)
