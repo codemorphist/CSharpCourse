@@ -1,0 +1,11 @@
+D:\Projects\HomeWork7\bin\Debug\HomeWork7.exe.config
+D:\Projects\HomeWork7\bin\Debug\HomeWork7.exe
+D:\Projects\HomeWork7\bin\Debug\HomeWork7.pdb
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.AssemblyReference.cache
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.SuggestedBindingRedirects.cache
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.Form1.resources
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.Properties.Resources.resources
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.GenerateResource.cache
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.csproj.CoreCompileInputs.cache
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.exe
+D:\Projects\HomeWork7\obj\Debug\HomeWork7.pdb
