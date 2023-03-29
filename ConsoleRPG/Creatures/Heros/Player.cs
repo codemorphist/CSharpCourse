@@ -15,8 +15,15 @@ namespace ConsoleRPG.Creatures.Heros
         public int Agility { get; protected set; }
         public int Endurance { get; protected set; }
 
+        // Initialization of finance characteristics
+        public int GoldCount { get; protected set; }
+
         // Initialization of skills
         public List<ICombatSkill> Skills { get; protected set; }
+
+        // Finance methods
+        public void EarnGold(int gold_count) => GoldCount += gold_count;
+        public void SpendGOld(int gold_count) => GoldCount -= gold_count;
 
         // Skill function
         public void SetSkill(ICombatSkill skill) => Skills.Add(skill);
@@ -56,6 +63,8 @@ namespace ConsoleRPG.Creatures.Heros
             SetHealth(400 * Level);
             SetAgility((int)(Agility * 1.5));
             SetMaxHealth(Health);
+
+            EarnGold(Level * 5);
         }
 
         // Player Class constructor
@@ -69,6 +78,7 @@ namespace ConsoleRPG.Creatures.Heros
             Agility = 80;
             Endurance = 100;
             ExperiencePoints = 100;
+            GoldCount = 100;
 
             Skills = new List<ICombatSkill>();
         }
