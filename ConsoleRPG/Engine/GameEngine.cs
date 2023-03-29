@@ -20,31 +20,6 @@ namespace ConsoleRPG.Engine
     {
         private Player GamePlayer;
 
-        public Monster GetMonster()
-        {
-            /* This function generate Monster by Player characteristics */
-            string name = GenerateName();
-            int level = RandomNumber(GamePlayer.Level, GamePlayer.Level + 2);
-            int health = RandomNumber(GamePlayer.MaxHealth - 100, GamePlayer.MaxHealth);
-            int max_health = RandomNumber(health, health + 100);
-            int energy = RandomNumber(200, 500);
-            int strength = RandomNumber(GamePlayer.Strength - 20, GamePlayer.Strength - 10);
-            int expireance_points = RandomNumber(10, 200);
-
-            Monster monster = new Monster(name, level, health, max_health, strength, energy, expireance_points);
-
-            for (int i = 1; i < 4; i++)
-            {
-                if (RandomNumber(0, 3) == 1)
-                    monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, i + 4));
-            }
-
-            if (RandomNumber(0, 4) == 4)
-                monster.SetWeapon(GetRandomWeapon(level, RandomNumber(1,5)));
-
-                return monster;
-        }
-
         public void CreatePlayer(string name, int type)
         {
             /* This function create Player with some type and name */ 
@@ -68,6 +43,48 @@ namespace ConsoleRPG.Engine
                 GamePlayer.PutAwayArmor((ArmorType)i, GetRandomArmor(GamePlayer.Level, i + 4));
 
             GamePlayer.SetWeapon(GetRandomWeapon(GamePlayer.Level, RandomNumber(1, 4)));
+        }
+
+        public Monster GetMonster()
+        {
+            /* This function generate Monster by Player characteristics */
+            string name = GenerateName();
+            int level = RandomNumber(GamePlayer.Level, GamePlayer.Level + 2);
+            int health = RandomNumber(GamePlayer.MaxHealth - 100, GamePlayer.MaxHealth);
+            int max_health = RandomNumber(health, health + 100);
+            int energy = RandomNumber(200, 500);
+            int strength = RandomNumber(GamePlayer.Strength - 20, GamePlayer.Strength - 10);
+            int expireance_points = RandomNumber(10, 200);
+
+            Monster monster = new Monster(name, level, health, max_health, strength, energy, expireance_points);
+
+            for (int i = 1; i < 4; i++)
+            {
+                if (RandomNumber(0, 3) == 1)
+                    monster.PutAwayArmor((ArmorType)i, GetRandomArmor(level, i + 4));
+            }
+
+            if (RandomNumber(0, 4) == 4)
+                monster.SetWeapon(GetRandomWeapon(level, RandomNumber(1, 5)));
+
+            return monster;
+        }
+
+        private char TypeChar(int type)
+        {
+            switch ((ArmorType)(type - 4))
+            {
+                case ArmorType.Helmet:
+                    return 'H';
+                case ArmorType.Chest:
+                    return 'C';
+                case ArmorType.Leggins:
+                    return 'L';
+                case ArmorType.Boots:
+                    return 'B';
+                default:
+                    return ' ';
+            }
         }
 
         private Armor GetRandomArmor(int creature_level, int type)
@@ -100,20 +117,16 @@ namespace ConsoleRPG.Engine
             }
         }
 
-        private char TypeChar(int type)
+        private IPotion GetRandomPotion()
         {
-            switch ((ArmorType)(type - 4)) 
+            switch (RandomNumber(0,2))
             {
-                case ArmorType.Helmet:
-                    return 'H';
-                case ArmorType.Chest:
-                    return 'C';
-                case ArmorType.Leggins:
-                    return 'L';
-                case ArmorType.Boots:
-                    return 'B';
+                case 0:
+                    return new HealthPotion("Healt Potion", GamePlayer.Level, RandomNumber(GamePlayer.Health / 3, GamePlayer.Health / 2 ));
+                case 1:
+                    return new HealthPotion("Strength Potion", GamePlayer.Level, RandomNumber(GamePlayer.Health / 3, GamePlayer.Health / 2));
                 default:
-                    return ' ';
+                    return null;
             }
         }
 
@@ -131,6 +144,13 @@ namespace ConsoleRPG.Engine
             Weapon weapon = GetRandomWeapon(GamePlayer.Level, type);
             GamePlayer.SetWeapon(weapon);
             return $"You picked [{weapon.Name}] [{weapon.Level} Lv.] [{weapon.Damage}]";
+        }
+
+        public string NewPotion()
+        {
+            IPotion potion = GetRandomPotion();
+            potion.UsePotion(GamePlayer);
+            return $"You had used potion";
         }
 
         private int PlayerHit()

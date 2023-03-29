@@ -90,6 +90,10 @@ namespace ConsoleRPG
                                 info =  Engine.NewWeapon();
                                 adventure.CurrentSymbol = 'o';
                                 break;
+                            case 'P':
+                                info = Engine.NewPotion();
+                                adventure.CurrentSymbol = 'o';
+                                break;                                
                             default:
                                 info = "Nothing here..";
                                 break;
@@ -123,6 +127,9 @@ namespace ConsoleRPG
                         break;
                     case 'P':
                         Console.Write("Press [E] to drink Potion (in next release)");
+                        break;
+                    case 'S':
+                        Console.Write("Press [E] to enter to the Store (in next release)");
                         break;
                 }
             }

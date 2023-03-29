@@ -1,5 +1,7 @@
-﻿using ConsoleRPG.Items;
-using System;
+﻿using System;
+
+using ConsoleRPG.Utils;
+using ConsoleRPG.Items;
 
 namespace ConsoleRPG.Creature
 {
@@ -11,7 +13,7 @@ namespace ConsoleRPG.Creature
         Feet
     }
 
-    internal class BasePerson
+    internal class BasePerson : TimeHelper
     {
         private static readonly Random random = new Random();
 
@@ -74,12 +76,12 @@ namespace ConsoleRPG.Creature
         }
 
         // BasePerson constructor
-        public BasePerson (string name)
+        public BasePerson (string name) : base ()
         {
             Name = name;
 
             Armors = new Armor[4];
-            Weapons = null;
+            Weapons = null;  
         }
     }
 }

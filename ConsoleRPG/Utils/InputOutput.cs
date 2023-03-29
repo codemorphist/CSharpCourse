@@ -221,6 +221,9 @@ namespace ConsoleRPG.Utils
                             case 'C':
                                 DrawColoredSymbol('C', ConsoleColor.DarkYellow);
                                 break;
+                            case 'S':
+                                DrawColoredSymbol('S', ConsoleColor.DarkBlue);
+                                break;
                             case ',':
                                 DrawColoredSymbol(field[row, col], ConsoleColor.Green);
                                 break;

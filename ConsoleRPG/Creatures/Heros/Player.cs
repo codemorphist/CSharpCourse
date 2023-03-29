@@ -52,8 +52,9 @@ namespace ConsoleRPG.Creatures.Heros
         public void LevelUp()
         {
             SetLevel(Level + 1);
-            SetStrength((int) (Strength * 1.5));
+            SetStrength((int)(Strength * 1.5));
             SetHealth(400 * Level);
+            SetAgility((int)(Agility * 1.5));
             SetMaxHealth(Health);
         }
 
